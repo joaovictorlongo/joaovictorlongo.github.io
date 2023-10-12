@@ -26,7 +26,7 @@ description: >- # used by seo meta and the atom feed
   Um pouquinho dos meus estudos e história como desenvolvedor de software.
 
 # fill in the protocol & hostname for your site, e.g., 'https://username.github.io'
-url: "https://avatars.githubusercontent.com/u/43239578?v=4"
+url: ""
 
 github:
   username: joaovictorlongo # change to your github username
@@ -76,7 +76,7 @@ theme_mode: # [light|dark]
 img_cdn:
 
 # the avatar on sidebar, support local or CORS resources
-avatar:
+avatar: /assets/img/avatar.jpeg
 
 # boolean type, the global switch for TOC in posts.
 toc: true
