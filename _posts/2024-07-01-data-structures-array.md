@@ -1,6 +1,7 @@
 ---
 layout: post
 title:  "Estrutura de dados - Arrays"
+category: "Estutura de dados"
 ---
 
 # Fundamentos da Estrutura de Dados Array em Rust
@@ -14,7 +15,7 @@ Em Rust, para que possamos declarar um array, utilizamos o símbolo de colhcetes
 
 Exemplo:
 
-```
+```rust
   fn main() {
     let arr: [i32; 5] = [1, 2, 3, 4, 5];
     println!("{:?}", arr);
@@ -29,7 +30,7 @@ o `println!("{:?}", arr)` serve para efetuar o log do array no terminal.
 
 Para acessar elementos de um array no Rust, podemos usar os indíces, que começam no 0 (Zero). Para quem é acostumado com o JavaScript o acesso é bem similar.
 
-```
+```rust
 fn main() {
     let arr = [1, 2, 3, 4, 5];
     println!("O primeiro elemento é: {}", arr[0]);
@@ -43,7 +44,7 @@ Basta utilizarmos a variável e informar o indíce entre os colchetes.
 
 Podemos fazer a iteração de arrays utilizando a estrutura for combinado com a função `iter` que é disponibilizada na variável de alocação do array.
 
-```
+```rust
 fn main() {
     let arr = [1, 2, 3, 4, 5];
     for element in arr.iter() {
@@ -58,7 +59,7 @@ Podemos também ter um array de arrays, que seria uma matriz.
 
 Podemos definir no Rust da seguinte maneira:
 
-```
+```rust
 fn main() {
     let matrix: [[i32; 3]; 2] = [
         [1, 2, 3],
@@ -73,14 +74,14 @@ Neste exemplo é definido uma variável matrix que é um array de arrays onde a 
 
 Vamos iniciar o projeto utilizando o cargo
 
-```
+```bash
 cargo new array-operations
 cd array-operations
 ```
 
 Agora, vamos editar o arquivo **src/main.rs** e criar a nossa estrutura de array.
 
-```
+```rust
 fn main() {
     println!("Operações com arrays");
 
@@ -118,7 +119,7 @@ podemode executar o código executando `cargo run` no diretório do nosso projet
 
 O resultado deve ser algo como:
 
-```
+```bash
 ❯ cargo run
    Compiling array-operations v0.1.0 (/home/user/projects/array-operations)
     Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.18s
