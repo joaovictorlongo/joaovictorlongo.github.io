@@ -66,6 +66,7 @@ const langColor: Record<string, string> = {
     border: 1px solid var(--border);
     border-radius: var(--radius-md);
     transition: all 0.25s ease;
+    min-height: 200px;
   }
 
   .project-card:hover {
@@ -85,9 +86,10 @@ const langColor: Record<string, string> = {
   .project-card__header {
     display: flex;
     justify-content: space-between;
-    align-items: flex-start;
+    align-items: center;
     gap: var(--space-md);
     margin-bottom: var(--space-sm);
+    min-height: 28px;
   }
 
   .project-card__name {
@@ -95,6 +97,10 @@ const langColor: Record<string, string> = {
     font-weight: 600;
     color: var(--text);
     font-family: var(--font-mono);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-width: 0;
   }
 
   .project-card__stats {
