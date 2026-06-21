@@ -4,7 +4,7 @@ import profile from '../data/profile.json';
 
 <section class="hero" aria-label="Introdução">
   <div class="hero__bg" aria-hidden="true"></div>
-  <div class="hero__inner container--narrow">
+  <div class="hero__inner container">
     <div class="hero__content">
       <span class="section-label fade-in" style="animation-delay: 0.1s">Olá, eu sou</span>
       <h1 class="hero__title fade-in" style="animation-delay: 0.2s">
@@ -56,12 +56,13 @@ import profile from '../data/profile.json';
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: var(--space-3xl);
+    gap: var(--space-4xl);
     position: relative;
   }
 
   .hero__content {
     flex: 1;
+    max-width: 600px;
   }
 
   .hero__title {
@@ -71,18 +72,18 @@ import profile from '../data/profile.json';
   }
 
   .hero__role {
-    font-size: clamp(1rem, 2.5vw, 1.25rem);
+    font-size: clamp(1.125rem, 2.5vw, 1.375rem);
     color: var(--accent);
     font-weight: 500;
     margin-bottom: var(--space-md);
   }
 
   .hero__tagline {
-    font-size: clamp(1rem, 2vw, 1.125rem);
+    font-size: clamp(1.0625rem, 2vw, 1.1875rem);
     color: var(--text-secondary);
-    line-height: 1.7;
+    line-height: 1.75;
     margin-bottom: var(--space-xl);
-    max-width: 520px;
+    max-width: 500px;
   }
 
   .hero__actions {
@@ -97,8 +98,8 @@ import profile from '../data/profile.json';
   }
 
   .hero__avatar-img {
-    width: 160px;
-    height: 160px;
+    width: 180px;
+    height: 180px;
     border-radius: 50%;
     object-fit: cover;
     position: relative;
@@ -120,7 +121,7 @@ import profile from '../data/profile.json';
     50% { transform: scale(1.05); opacity: 0.15; }
   }
 
-  @media (max-width: 768px) {
+  @media (max-width: 860px) {
     .hero {
       min-height: auto;
       padding: var(--space-3xl) 0;
@@ -132,6 +133,7 @@ import profile from '../data/profile.json';
     }
 
     .hero__content {
+      max-width: 100%;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -144,7 +146,9 @@ import profile from '../data/profile.json';
     .hero__actions {
       justify-content: center;
     }
+  }
 
+  @media (max-width: 480px) {
     .hero__avatar-img {
       width: 120px;
       height: 120px;
