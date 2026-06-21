@@ -1,0 +1,13 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import About from '../../components/About.astro';
+import profile from '../../data/profile.json';
+---
+
+<BaseLayout
+  title="Sobre"
+  description={`Conheça mais sobre ${profile.name}, ${profile.role}`}
+  url="https://joaovictorlongo.github.io/sobre"
+>
+  <About />
+</BaseLayout>
