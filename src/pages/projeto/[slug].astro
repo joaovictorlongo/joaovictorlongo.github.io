@@ -57,7 +57,7 @@ const readmeHtml = repo.readme_full
 
       {readmeHtml ? (
         <div class="project-detail__readme">
-          <div class="readme-content">{readmeHtml}</div>
+          <div class="readme-content" set:html={readmeHtml} />
         </div>
       ) : (
         <p class="project-detail__description">{repo.description}</p>
