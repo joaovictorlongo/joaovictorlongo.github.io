@@ -1,0 +1,92 @@
+---
+export interface Props {
+  name: string;
+  description: string;
+  language: string;
+  topics: string[];
+  slug: string;
+}
+
+const { name, description, language, topics, slug } = Astro.props;
+const langColor: Record<string, string> = {
+  TypeScript: '#3178c6',
+  JavaScript: '#f7df1e',
+  HTML: '#e34f26',
+  CSS: '#1572b6',
+  Dockerfile: '#2496ed',
+};
+const truncated = description.length > 120 ? description.slice(0, 117) + '...' : description;
+---
+
+<a href={`/projeto/${slug}`} class="project-preview fade-in" aria-label={`Ver detalhes do projeto ${name}`}>
+  <h3 class="project-preview__name">{name}</h3>
+  <p class="project-preview__description">{truncated}</p>
+  <div class="project-preview__footer">
+    <div class="project-preview__lang" style={`--lang-color: ${langColor[language] || '#888'}`}>
+      <span class="project-preview__dot"></span>
+      {language}
+    </div>
+    {topics.slice(0, 2).map((t) => (
+      <span class="tag">{t}</span>
+    ))}
+  </div>
+</a>
+
+<style>
+  .project-preview {
+    display: flex;
+    flex-direction: column;
+    padding: var(--space-lg);
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.25s ease;
+    gap: var(--space-sm);
+  }
+
+  .project-preview:hover {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 1px var(--accent-glow);
+    background: var(--card-hover);
+  }
+
+  .project-preview__name {
+    font-size: 1rem;
+    font-weight: 600;
+    font-family: var(--font-mono);
+    color: var(--text);
+  }
+
+  .project-preview__description {
+    font-size: 0.8125rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+    flex: 1;
+  }
+
+  .project-preview__footer {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    flex-wrap: wrap;
+    margin-top: var(--space-xs);
+  }
+
+  .project-preview__lang {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.75rem;
+    font-family: var(--font-mono);
+    color: var(--text-muted);
+  }
+
+  .project-preview__dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--lang-color, #888);
+  }
+</style>

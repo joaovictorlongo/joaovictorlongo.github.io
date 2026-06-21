@@ -1,0 +1,81 @@
+---
+import ProjectPreview from './ProjectPreview.astro';
+
+export interface Props {
+  repos: Array<{
+    name: string;
+    description: string;
+    language: string;
+    topics: string[];
+  }>;
+}
+
+const { repos } = Astro.props;
+
+function toSlug(name: string) {
+  return name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+}
+---
+
+<section id="projects" class="preview" aria-label="Projetos em destaque">
+  <div class="container">
+    <span class="section-label fade-in">Projetos</span>
+    <h2 class="preview__title fade-in">Alguns trabalhos</h2>
+    <p class="preview__subtitle fade-in">
+      Uma amostra dos meus repositórios públicos. Veja a página completa de projetos para mais detalhes.
+    </p>
+    <div class="preview__grid">
+      {repos.map((repo, i) => (
+        <ProjectPreview
+          name={repo.name}
+          description={repo.description}
+          language={repo.language}
+          topics={repo.topics}
+          slug={toSlug(repo.name)}
+          style={`animation-delay: ${0.15 + i * 0.1}s`}
+        />
+      ))}
+    </div>
+    <div class="preview__action fade-in">
+      <a href="/projetos" class="btn btn--ghost">
+        Ver todos os projetos
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .preview {
+    background: var(--bg-surface);
+  }
+
+  .preview__title {
+    margin-bottom: var(--space-sm);
+  }
+
+  .preview__subtitle {
+    color: var(--text-secondary);
+    font-size: 1.0625rem;
+    margin-bottom: var(--space-2xl);
+    max-width: 520px;
+  }
+
+  .preview__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-md);
+  }
+
+  .preview__action {
+    display: flex;
+    justify-content: center;
+    margin-top: var(--space-2xl);
+  }
+
+  @media (max-width: 640px) {
+    .preview__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
