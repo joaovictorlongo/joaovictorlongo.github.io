@@ -160,17 +160,24 @@ code {
   top: var(--space-md);
 }
 
-.container {
-  width: var(--content-wide);
+.container,
+.container--narrow,
+.container--text {
   margin: 0 auto;
+  padding-left: var(--space-md);
+  padding-right: var(--space-md);
+}
+
+.container {
+  max-width: 960px;
 }
 
 .container--narrow {
-  width: var(--content-narrow);
+  max-width: 500px;
 }
 
 .container--text {
-  width: var(--content);
+  max-width: 712px;
 }
 
 section {
