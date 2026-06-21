@@ -1,0 +1,154 @@
+---
+import profile from '../data/profile.json';
+---
+
+<section class="hero" aria-label="Introdução">
+  <div class="hero__bg" aria-hidden="true"></div>
+  <div class="hero__inner container--narrow">
+    <div class="hero__content">
+      <span class="section-label fade-in" style="animation-delay: 0.1s">Olá, eu sou</span>
+      <h1 class="hero__title fade-in" style="animation-delay: 0.2s">
+        {profile.name}
+      </h1>
+      <p class="hero__role fade-in" style="animation-delay: 0.3s">
+        {profile.role}
+      </p>
+      <p class="hero__tagline fade-in" style="animation-delay: 0.4s">
+        {profile.tagline}
+      </p>
+      <div class="hero__actions fade-in" style="animation-delay: 0.5s">
+        <a href="/#projects" class="btn btn--primary">
+          Ver projetos
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+        <a href={profile.github} target="_blank" rel="noopener noreferrer" class="btn btn--ghost">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+          GitHub
+        </a>
+      </div>
+    </div>
+    <div class="hero__avatar fade-in" style="animation-delay: 0.3s" aria-hidden="true">
+      <img src={profile.avatar} alt="" width="160" height="160" class="hero__avatar-img" />
+      <div class="hero__avatar-ring"></div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    min-height: calc(100vh - 60px);
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+  }
+
+  .hero__bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 600px 400px at 80% 50%, var(--accent-glow), transparent),
+      radial-gradient(ellipse 400px 300px at 20% 60%, rgba(99, 102, 241, 0.05), transparent);
+    pointer-events: none;
+  }
+
+  .hero__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-3xl);
+    position: relative;
+    width: var(--content-wide);
+  }
+
+  .hero__content {
+    flex: 1;
+  }
+
+  .hero__title {
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    margin-bottom: var(--space-sm);
+  }
+
+  .hero__role {
+    font-size: clamp(1rem, 2.5vw, 1.25rem);
+    color: var(--accent);
+    font-weight: 500;
+    margin-bottom: var(--space-md);
+  }
+
+  .hero__tagline {
+    font-size: clamp(1rem, 2vw, 1.125rem);
+    color: var(--text-secondary);
+    line-height: 1.7;
+    margin-bottom: var(--space-xl);
+    max-width: 520px;
+  }
+
+  .hero__actions {
+    display: flex;
+    gap: var(--space-md);
+    flex-wrap: wrap;
+  }
+
+  .hero__avatar {
+    position: relative;
+    flex-shrink: 0;
+  }
+
+  .hero__avatar-img {
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    object-fit: cover;
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero__avatar-ring {
+    position: absolute;
+    inset: -6px;
+    border-radius: 50%;
+    border: 2px solid var(--accent);
+    opacity: 0.4;
+    z-index: 0;
+    animation: pulse 3s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); opacity: 0.4; }
+    50% { transform: scale(1.05); opacity: 0.15; }
+  }
+
+  @media (max-width: 768px) {
+    .hero {
+      min-height: auto;
+      padding: var(--space-3xl) 0;
+    }
+
+    .hero__inner {
+      flex-direction: column-reverse;
+      text-align: center;
+    }
+
+    .hero__content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .hero__tagline {
+      max-width: 100%;
+    }
+
+    .hero__actions {
+      justify-content: center;
+    }
+
+    .hero__avatar-img {
+      width: 120px;
+      height: 120px;
+    }
+  }
+</style>

@@ -1,0 +1,32 @@
+{
+  "name": "João Victor Longo",
+  "role": "Desenvolvedor Fullstack",
+  "tagline": "Construindo produtos digitais que conectam dados, interfaces e pessoas.",
+  "location": "São José do Rio Preto — SP",
+  "company": "Field Control",
+  "avatar": "https://avatars.githubusercontent.com/u/43239578?v=4",
+  "github": "https://github.com/joaovictorlongo",
+  "linkedin": "https://www.linkedin.com/in/joaovictorlongo/",
+  "email": "",
+  "hireable": true,
+  "bio": [
+    "Desenvolvedor fullstack com experiência em TypeScript, Node.js, Angular, React e infraestrutura containerizada. Atualmente na Field Control, onde construo soluções que transformam dados em decisões.",
+    "Sou movido por criar ferramentas que resolvem problemas reais — seja um CLI para controlar o Spotify no terminal, um radar meteorológico open source no bolso, ou sistemas de autenticação seguros e escaláveis."
+  ],
+  "skills": [
+    "TypeScript",
+    "JavaScript",
+    "Node.js",
+    "Angular",
+    "NestJS",
+    "React",
+    "PostgreSQL",
+    "Docker",
+    "Git",
+    "Bun",
+    "Elysia",
+    "NativeScript",
+    "Puppeteer",
+    "HTML & CSS"
+  ]
+}

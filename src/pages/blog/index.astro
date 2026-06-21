@@ -1,0 +1,33 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Blog" description="Artigos e anotações técnicas de João Victor Longo">
+  <div class="blog">
+    <div class="container--text">
+      <span class="section-label fade-in">Blog</span>
+      <h1 class="blog__title fade-in">Artigos</h1>
+      <p class="blog__empty fade-in">
+        Em breve, artigos sobre desenvolvimento fullstack, TypeScript, Angular, NestJS
+        e boas práticas de engenharia de software.
+      </p>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .blog {
+    padding: var(--space-4xl) 0;
+    min-height: calc(100vh - 60px - 120px);
+  }
+
+  .blog__title {
+    margin-bottom: var(--space-lg);
+  }
+
+  .blog__empty {
+    color: var(--text-muted);
+    font-size: 1.0625rem;
+    line-height: 1.7;
+  }
+</style>

@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://joaovictorlongo.github.io/sitemap-index.xml

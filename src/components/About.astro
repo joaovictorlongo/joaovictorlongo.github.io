@@ -1,0 +1,111 @@
+---
+import profile from '../data/profile.json';
+---
+
+<section id="about" class="about" aria-label="Sobre mim">
+  <div class="container--text">
+    <span class="section-label fade-in">Sobre</span>
+    <h2 class="about__title fade-in">
+      Quem sou
+    </h2>
+    {
+      profile.bio.map((paragraph, i) => (
+        <p class="about__text fade-in" style={`animation-delay: ${0.2 + i * 0.15}s`}>
+          {paragraph}
+        </p>
+      ))
+    }
+    <div class="about__meta fade-in" style="animation-delay: 0.5s">
+      <div class="about__meta-item">
+        <span class="about__meta-label">Localização</span>
+        <span class="about__meta-value">{profile.location}</span>
+      </div>
+      <div class="about__meta-item">
+        <span class="about__meta-label">Empresa</span>
+        <span class="about__meta-value">{profile.company}</span>
+      </div>
+      <div class="about__meta-item">
+        <span class="about__meta-label">Disponível</span>
+        <span class="about__meta-value" style="color: var(--accent);">Sim</span>
+      </div>
+    </div>
+    <div class="about__skills fade-in" style="animation-delay: 0.6s">
+      <h3 class="about__skills-title">Stack</h3>
+      <div class="about__skills-list">
+        {profile.skills.map((skill) => (
+          <span class="tag">{skill}</span>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .about {
+    background: var(--bg-surface);
+  }
+
+  .about__title {
+    margin-bottom: var(--space-lg);
+  }
+
+  .about__text {
+    color: var(--text-secondary);
+    font-size: 1.0625rem;
+    line-height: 1.8;
+    margin-bottom: var(--space-md);
+  }
+
+  .about__meta {
+    display: flex;
+    gap: var(--space-2xl);
+    margin-top: var(--space-xl);
+    padding: var(--space-lg);
+    background: var(--bg);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-light);
+  }
+
+  .about__meta-item {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .about__meta-label {
+    font-size: 0.75rem;
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-muted);
+  }
+
+  .about__meta-value {
+    font-size: 0.9375rem;
+    font-weight: 500;
+  }
+
+  .about__skills {
+    margin-top: var(--space-xl);
+  }
+
+  .about__skills-title {
+    font-size: 0.875rem;
+    font-weight: 600;
+    margin-bottom: var(--space-md);
+    color: var(--text-secondary);
+  }
+
+  .about__skills-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+  }
+
+  @media (max-width: 640px) {
+    .about__meta {
+      flex-direction: column;
+      gap: var(--space-md);
+    }
+  }
+</style>

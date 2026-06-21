@@ -1,0 +1,18 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import About from '../components/About.astro';
+import ProjectGrid from '../components/ProjectGrid.astro';
+import profile from '../data/profile.json';
+import pinned from '../data/pinned-repos.json';
+---
+
+<BaseLayout
+  title="Portfólio"
+  description={profile.tagline}
+  url="https://joaovictorlongo.github.io"
+>
+  <Hero />
+  <About />
+  <ProjectGrid repos={pinned} />
+</BaseLayout>

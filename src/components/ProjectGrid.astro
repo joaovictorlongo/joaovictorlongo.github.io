@@ -1,0 +1,77 @@
+---
+import ProjectCard from './ProjectCard.astro';
+
+export interface Props {
+  repos: Array<{
+    name: string;
+    description: string;
+    language: string;
+    languages: string[];
+    topics: string[];
+    stars: number;
+    forks: number;
+    url: string;
+  }>;
+}
+
+const { repos } = Astro.props;
+
+function toSlug(name: string) {
+  return name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+}
+---
+
+<section id="projects" class="projects" aria-label="Projetos em destaque">
+  <div class="container">
+    <span class="section-label fade-in">Projetos</span>
+    <h2 class="projects__title fade-in">Em destaque</h2>
+    <p class="projects__subtitle fade-in">
+      Repositórios públicos em destaque no meu GitHub. Clique em cada um para ver detalhes.
+    </p>
+    <div class="projects__grid">
+      {repos.map((repo, i) => (
+        <ProjectCard
+          name={repo.name}
+          description={repo.description}
+          language={repo.language}
+          languages={repo.languages}
+          topics={repo.topics}
+          stars={repo.stars}
+          forks={repo.forks}
+          url={repo.url}
+          slug={toSlug(repo.name)}
+          style={`animation-delay: ${0.15 + i * 0.1}s`}
+        />
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .projects {
+    background: var(--bg);
+  }
+
+  .projects__title {
+    margin-bottom: var(--space-sm);
+  }
+
+  .projects__subtitle {
+    color: var(--text-secondary);
+    font-size: 1.0625rem;
+    margin-bottom: var(--space-2xl);
+    max-width: 520px;
+  }
+
+  .projects__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+    gap: var(--space-lg);
+  }
+
+  @media (max-width: 420px) {
+    .projects__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

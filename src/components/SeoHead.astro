@@ -1,0 +1,49 @@
+---
+export interface Props {
+  title: string;
+  description: string;
+  image?: string;
+  url?: string;
+  type?: string;
+}
+
+const { title, description, image, url, type = 'website' } = Astro.props;
+const siteName = 'João Victor Longo — Desenvolvedor Fullstack';
+const defaultImage = 'https://avatars.githubusercontent.com/u/43239578?v=4';
+const siteUrl = 'https://joaovictorlongo.github.io';
+---
+
+<title>{title} | {siteName}</title>
+<meta name="description" content={description} />
+<meta name="author" content="João Victor Longo" />
+
+<!-- Open Graph -->
+<meta property="og:title" content={`${title} | ${siteName}`} />
+<meta property="og:description" content={description} />
+<meta property="og:image" content={image || defaultImage} />
+<meta property="og:url" content={url || siteUrl} />
+<meta property="og:type" content={type} />
+<meta property="og:site_name" content={siteName} />
+<meta property="og:locale" content="pt_BR" />
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={`${title} | ${siteName}`} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={image || defaultImage} />
+
+<!-- JSON-LD -->
+<script type="application/ld+json" set:html={JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': type === 'article' ? 'Article' : 'WebSite',
+  name: `${title} | ${siteName}`,
+  description,
+  url: url || siteUrl,
+  author: {
+    '@type': 'Person',
+    name: 'João Victor Longo',
+    url: 'https://github.com/joaovictorlongo',
+  },
+})} />
+
+<link rel="canonical" href={url || siteUrl} />

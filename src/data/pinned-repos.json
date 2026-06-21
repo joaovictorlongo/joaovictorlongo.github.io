@@ -1,0 +1,85 @@
+[
+  {
+    "name": "elysia-auth",
+    "full_name": "joaovictorlongo/elysia-auth",
+    "description": "Bun runtime com framework Elysia e abordagem de autenticação JWT com refresh token",
+    "url": "https://github.com/joaovictorlongo/elysia-auth",
+    "homepage": "",
+    "language": "TypeScript",
+    "languages": [
+      "TypeScript"
+    ],
+    "topics": [],
+    "stars": 0,
+    "forks": 0,
+    "license": null,
+    "updated_at": "2025-01-11T12:36:13Z",
+    "readme_summary": "Create a .env file in the root folder of the project and define the PostgreSQL database URL as follows: DATABASE_URL=postgres://postgres:postgres@localhost:5432/elysiaauth  Using Docker to set up PostgreSQL with docker-compose.yml Run the following command in the terminal from the project folder:"
+  },
+  {
+    "name": "scrappingjob",
+    "full_name": "joaovictorlongo/scrappingjob",
+    "description": "Web Scraping de Vagas: Coleta automática de listagens de empregos em sites.",
+    "url": "https://github.com/joaovictorlongo/scrappingjob",
+    "homepage": "",
+    "language": "HTML",
+    "languages": [
+      "HTML",
+      "TypeScript",
+      "CSS",
+      "JavaScript",
+      "Dockerfile"
+    ],
+    "topics": [
+      "angular",
+      "nestjs",
+      "nodejs",
+      "postgresql",
+      "puppeteer"
+    ],
+    "stars": 0,
+    "forks": 0,
+    "license": "MIT",
+    "updated_at": "2026-02-25T02:19:29Z",
+    "readme_summary": "⚠️ Aviso Importante: Este projeto é estritamente um objeto de estudo. Foi desenvolvido com propósitos educacionais para aprender e praticar diversas tecnologias como web scraping, desenvolvimento fullstack (Angular e NestJS) e orquestração de containers. Não deve ser usado para fins comerciais. - Backend: Node.js, NestJS, TypeORM, Puppeteer (com puppeteer-extra-plugin-stealth para o scraping). - Banco de Dados: PostgreSQL. - Frontend: Angular (v21+), ngx-translate (para internacionalização). - Infraestrutura: Docker e Docker Compose."
+  },
+  {
+    "name": "open-radar",
+    "full_name": "joaovictorlongo/open-radar",
+    "description": "Open Radar é um aplicativo mobile nativo Android de código aberto que exibe dados meteorológicos em tempo real do IPMet — radar meteorológico, satélite GOES-19, raios, estações METAR/INMET e estimativa de chuva acumulada — em um mapa interativo com animação e geolocalização.",
+    "url": "https://github.com/joaovictorlongo/open-radar",
+    "homepage": "",
+    "language": "TypeScript",
+    "languages": [
+      "TypeScript",
+      "HTML",
+      "JavaScript",
+      "CSS"
+    ],
+    "topics": [],
+    "stars": 0,
+    "forks": 0,
+    "license": "MIT",
+    "updated_at": "2026-06-13T17:04:58Z",
+    "readme_summary": "![Platform]() ![License](LICENSE) ![Angular](https://angular.dev) ![NativeScript](https://nativescript.org) ![Leaflet](https://leafletjs.com)"
+  },
+  {
+    "name": "spoticli",
+    "full_name": "joaovictorlongo/spoticli",
+    "description": "Spotify no terminal. Aplicativo TUI construído com Node.js, TypeScript e Ink.",
+    "url": "https://github.com/joaovictorlongo/spoticli",
+    "homepage": "",
+    "language": "TypeScript",
+    "languages": [
+      "TypeScript",
+      "HTML",
+      "JavaScript"
+    ],
+    "topics": [],
+    "stars": 0,
+    "forks": 0,
+    "license": "MIT",
+    "updated_at": "2026-06-21T02:17:58Z",
+    "readme_summary": "Spotify no terminal. Aplicativo TUI construído com Node.js, TypeScript e Ink. Fase 7 (Device Spotify Connect) concluída. Veja o guia completo em implementation-guide.html. - Node.js >= 22 - Uma conta de desenvolvedor no Spotify Dashboard - Conta Spotify Premium (necessária para o device Spotify Connect)"
+  }
+]

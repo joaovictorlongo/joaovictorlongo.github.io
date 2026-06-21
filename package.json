@@ -1,0 +1,16 @@
+{
+  "name": "joaovictorlongo.github.io",
+  "type": "module",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "astro dev",
+    "build": "node scripts/fetch-pinned-repos.js && astro build",
+    "preview": "astro preview",
+    "fetch-repos": "node scripts/fetch-pinned-repos.js"
+  },
+  "dependencies": {
+    "astro": "^5.7.0",
+    "@astrojs/sitemap": "^3.3.0"
+  }
+}

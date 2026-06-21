@@ -1,0 +1,161 @@
+---
+export interface Props {
+  name: string;
+  description: string;
+  language: string;
+  languages: string[];
+  topics: string[];
+  stars: number;
+  forks: number;
+  url: string;
+  slug: string;
+}
+
+const { name, description, language, languages, topics, stars, forks, url, slug } = Astro.props;
+const langColor: Record<string, string> = {
+  TypeScript: '#3178c6',
+  JavaScript: '#f7df1e',
+  HTML: '#e34f26',
+  CSS: '#1572b6',
+  Dockerfile: '#2496ed',
+};
+---
+
+<article class="project-card fade-in">
+  <a href={`/projeto/${slug}`} class="project-card__link" aria-label={`Ver detalhes do projeto ${name}`}>
+    <div class="project-card__header">
+      <h3 class="project-card__name">{name}</h3>
+      <div class="project-card__stats">
+        {stars > 0 && (
+          <span class="project-card__stat" title="Estrelas">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            {stars}
+          </span>
+        )}
+        {forks > 0 && (
+          <span class="project-card__stat" title="Forks">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="18" r="3"/><circle cx="6" cy="6" r="3"/><circle cx="18" cy="6" r="3"/><path d="M18 9v1a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V9"/><path d="M12 12v3"/></svg>
+            {forks}
+          </span>
+        )}
+      </div>
+    </div>
+    <p class="project-card__description">{description}</p>
+    <div class="project-card__footer">
+      <div class="project-card__language" style={`--lang-color: ${langColor[language] || '#888'}`}>
+        <span class="project-card__lang-dot"></span>
+        {language}
+      </div>
+      {topics.slice(0, 3).map((topic) => (
+        <span class="tag">{topic}</span>
+      ))}
+    </div>
+  </a>
+  <a href={url} target="_blank" rel="noopener noreferrer" class="project-card__external" aria-label={`${name} no GitHub`}>
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+  </a>
+</article>
+
+<style>
+  .project-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    padding: var(--space-lg);
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    transition: all 0.25s ease;
+  }
+
+  .project-card:hover {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 1px var(--accent-glow);
+    background: var(--card-hover);
+  }
+
+  .project-card__link {
+    text-decoration: none;
+    color: inherit;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .project-card__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: var(--space-md);
+    margin-bottom: var(--space-sm);
+  }
+
+  .project-card__name {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--text);
+    font-family: var(--font-mono);
+  }
+
+  .project-card__stats {
+    display: flex;
+    gap: var(--space-sm);
+    flex-shrink: 0;
+  }
+
+  .project-card__stat {
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    font-family: var(--font-mono);
+  }
+
+  .project-card__description {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    flex: 1;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .project-card__footer {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    margin-top: var(--space-md);
+    flex-wrap: wrap;
+  }
+
+  .project-card__language {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.75rem;
+    font-family: var(--font-mono);
+    color: var(--text-muted);
+  }
+
+  .project-card__lang-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--lang-color, #888);
+  }
+
+  .project-card__external {
+    position: absolute;
+    top: var(--space-md);
+    right: var(--space-md);
+    color: var(--text-muted);
+    transition: color 0.2s ease;
+  }
+
+  .project-card__external:hover {
+    color: var(--accent);
+  }
+</style>

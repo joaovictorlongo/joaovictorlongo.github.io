@@ -1,0 +1,32 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Página não encontrada" description="Página não encontrada">
+  <div class="not-found">
+    <div class="container--narrow">
+      <span class="section-label">404</span>
+      <h1>Página não encontrada</h1>
+      <p>A página que você procura não existe ou foi movida.</p>
+      <a href="/" class="btn btn--primary" style="margin-top: var(--space-lg);">
+        Voltar ao início
+      </a>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .not-found {
+    min-height: calc(100vh - 60px - 120px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .not-found p {
+    color: var(--text-secondary);
+    font-size: 1.125rem;
+    margin-top: var(--space-md);
+  }
+</style>

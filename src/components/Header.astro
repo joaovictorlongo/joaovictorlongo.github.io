@@ -1,0 +1,100 @@
+---
+import ThemeToggle from './ThemeToggle.astro';
+---
+
+<header class="header">
+  <div class="header__inner container">
+    <a href="/" class="header__logo" aria-label="Página inicial">
+      <span class="header__logo-text">jl</span>
+      <span class="header__logo-dot">.</span>
+    </a>
+    <nav class="header__nav" aria-label="Navegação principal">
+      <a href="/#about" class="header__link">Sobre</a>
+      <a href="/#projects" class="header__link">Projetos</a>
+      <a href="/blog" class="header__link">Blog</a>
+    </nav>
+    <div class="header__actions">
+      <ThemeToggle />
+    </div>
+  </div>
+</header>
+
+<style>
+  .header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--bg);
+    border-bottom: 1px solid var(--border-light);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+
+  .header__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 60px;
+  }
+
+  .header__logo {
+    display: flex;
+    align-items: baseline;
+    font-family: var(--font-mono);
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--text);
+    text-decoration: none;
+  }
+
+  .header__logo-dot {
+    color: var(--accent);
+  }
+
+  .header__nav {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xl);
+  }
+
+  .header__link {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: color 0.2s ease;
+    position: relative;
+  }
+
+  .header__link::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: var(--accent);
+    transform: scaleX(0);
+    transition: transform 0.2s ease;
+  }
+
+  .header__link:hover {
+    color: var(--text);
+  }
+
+  .header__link:hover::after {
+    transform: scaleX(1);
+  }
+
+  .header__actions {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+  }
+
+  @media (max-width: 640px) {
+    .header__nav {
+      gap: var(--space-md);
+    }
+  }
+</style>
