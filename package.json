@@ -10,7 +10,8 @@
     "fetch-repos": "node scripts/fetch-pinned-repos.js"
   },
   "dependencies": {
+    "@astrojs/sitemap": "^3.3.0",
     "astro": "^5.7.0",
-    "@astrojs/sitemap": "^3.3.0"
+    "marked": "^18.0.5"
   }
 }

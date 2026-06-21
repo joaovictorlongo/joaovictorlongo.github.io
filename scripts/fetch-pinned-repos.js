@@ -20,8 +20,9 @@ async function fetchReadme(repo) {
       `https://api.github.com/repos/${USER}/${repo}/readme`
     );
     const content = Buffer.from(data.content, 'base64').toString('utf-8');
-    const lines = content.split('\n').filter((l) => l.trim());
-    const summary = lines
+    const summary = content
+      .split('\n')
+      .filter((l) => l.trim())
       .filter((l) => !l.startsWith('#'))
       .slice(0, 5)
       .join(' ')
@@ -30,9 +31,9 @@ async function fetchReadme(repo) {
       .replace(/\*{1,2}/g, '')
       .replace(/`{1,3}/g, '')
       .trim();
-    return summary || null;
+    return { full: content, summary: summary || null };
   } catch {
-    return null;
+    return { full: null, summary: null };
   }
 }
 
@@ -47,11 +48,11 @@ async function main() {
       const languages = await fetchJSON(
         `https://api.github.com/repos/${USER}/${name}/languages`
       );
-      const readmeSummary = await fetchReadme(name);
+      const readme = await fetchReadme(name);
       return {
         name: repo.name,
         full_name: repo.full_name,
-        description: repo.description || readmeSummary || '',
+        description: repo.description || readme.summary || '',
         url: repo.html_url,
         homepage: repo.homepage || '',
         language: repo.language,
@@ -61,7 +62,8 @@ async function main() {
         forks: repo.forks_count,
         license: repo.license?.spdx_id || null,
         updated_at: repo.updated_at,
-        readme_summary: readmeSummary,
+        readme_full: readme.full,
+        readme_summary: readme.summary,
       };
     })
   );

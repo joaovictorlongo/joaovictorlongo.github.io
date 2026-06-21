@@ -1,4 +1,5 @@
 ---
+import { marked } from 'marked';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import pinned from '../../data/pinned-repos.json';
 
@@ -17,6 +18,10 @@ const langColor: Record<string, string> = {
   CSS: '#1572b6',
   Dockerfile: '#2496ed',
 };
+
+const readmeHtml = repo.readme_full
+  ? marked.parse(repo.readme_full, { breaks: true, gfm: true })
+  : '';
 ---
 
 <BaseLayout
@@ -50,16 +55,15 @@ const langColor: Record<string, string> = {
         ))}
       </div>
 
-      <p class="project-detail__description">
-        {repo.description || repo.readme_summary}
-      </p>
-
-      {repo.readme_summary && (
-        <div class="project-detail__summary">
-          <h2>Sobre o projeto</h2>
-          <p>{repo.readme_summary}</p>
+      {readmeHtml ? (
+        <div class="project-detail__readme">
+          <div class="readme-content">{readmeHtml}</div>
         </div>
+      ) : (
+        <p class="project-detail__description">{repo.description}</p>
       )}
+
+      <hr class="project-detail__hr" />
 
       <h2>Linguagens</h2>
       <div class="project-detail__lang-list">
@@ -150,23 +154,117 @@ const langColor: Record<string, string> = {
     margin-bottom: var(--space-2xl);
   }
 
-  .project-detail__summary {
-    background: var(--bg-surface);
+  .project-detail__hr {
+    border: none;
+    border-top: 1px solid var(--border-light);
+    margin: var(--space-3xl) 0;
+  }
+
+  .project-detail__readme {
+    margin-bottom: var(--space-xl);
+  }
+
+  .readme-content {
+    font-size: 0.9375rem;
+    line-height: 1.75;
+    color: var(--text-secondary);
+  }
+
+  .readme-content h1,
+  .readme-content h2,
+  .readme-content h3 {
+    font-family: var(--font-body);
+    color: var(--text);
+    margin-top: var(--space-2xl);
+    margin-bottom: var(--space-md);
+    font-weight: 600;
+  }
+
+  .readme-content h1 { font-size: 1.5rem; }
+  .readme-content h2 { font-size: 1.25rem; }
+  .readme-content h3 { font-size: 1.125rem; }
+
+  .readme-content p {
+    margin-bottom: var(--space-md);
+  }
+
+  .readme-content ul,
+  .readme-content ol {
+    margin-bottom: var(--space-md);
+    padding-left: var(--space-lg);
+  }
+
+  .readme-content li {
+    margin-bottom: var(--space-xs);
+  }
+
+  .readme-content code {
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    background: var(--bg-muted);
+    padding: 2px 6px;
+    border-radius: var(--radius-sm);
+  }
+
+  .readme-content pre {
+    background: var(--bg-muted);
     border: 1px solid var(--border-light);
     border-radius: var(--radius-md);
-    padding: var(--space-lg);
-    margin-bottom: var(--space-2xl);
+    padding: var(--space-md);
+    overflow-x: auto;
+    margin-bottom: var(--space-md);
   }
 
-  .project-detail__summary h2 {
-    font-size: 1rem;
-    margin-bottom: var(--space-sm);
+  .readme-content pre code {
+    background: none;
+    padding: 0;
+    border-radius: 0;
   }
 
-  .project-detail__summary p {
-    font-size: 0.9375rem;
-    color: var(--text-secondary);
-    line-height: 1.7;
+  .readme-content a {
+    color: var(--accent);
+  }
+
+  .readme-content a:hover {
+    color: var(--accent-light);
+  }
+
+  .readme-content img {
+    max-width: 100%;
+    border-radius: var(--radius-md);
+    margin: var(--space-md) 0;
+  }
+
+  .readme-content blockquote {
+    border-left: 3px solid var(--accent);
+    padding-left: var(--space-md);
+    color: var(--text-muted);
+    margin-bottom: var(--space-md);
+  }
+
+  .readme-content hr {
+    border: none;
+    border-top: 1px solid var(--border-light);
+    margin: var(--space-lg) 0;
+  }
+
+  .readme-content table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: var(--space-md);
+  }
+
+  .readme-content th,
+  .readme-content td {
+    border: 1px solid var(--border-light);
+    padding: var(--space-sm) var(--space-md);
+    text-align: left;
+    font-size: 0.875rem;
+  }
+
+  .readme-content th {
+    background: var(--bg-muted);
+    font-weight: 600;
   }
 
   .project-detail__lang-list {
