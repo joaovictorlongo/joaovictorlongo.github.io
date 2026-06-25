@@ -41,12 +41,12 @@ function toSlug(name: string) {
 <style>
   .projects__grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
     gap: var(--space-lg);
     align-items: stretch;
   }
 
-  @media (max-width: 420px) {
+  @media (max-width: 768px) {
     .projects__grid {
       grid-template-columns: 1fr;
     }
