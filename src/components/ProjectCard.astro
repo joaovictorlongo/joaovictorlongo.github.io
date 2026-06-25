@@ -23,35 +23,45 @@ const langColor: Record<string, string> = {
 
 <article class="project-card fade-in">
   <a href={`/projeto/${slug}`} class="project-card__link" aria-label={`Ver detalhes do projeto ${name}`}>
-    <div class="project-card__header">
-      <h3 class="project-card__name">{name}</h3>
-      <div class="project-card__stats">
-        {stars > 0 && (
-          <span class="project-card__stat" title="Estrelas">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            {stars}
-          </span>
-        )}
-        {forks > 0 && (
-          <span class="project-card__stat" title="Forks">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="18" r="3"/><circle cx="6" cy="6" r="3"/><circle cx="18" cy="6" r="3"/><path d="M18 9v1a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V9"/><path d="M12 12v3"/></svg>
-            {forks}
-          </span>
-        )}
-        <a href={url} target="_blank" rel="noopener noreferrer" class="project-card__external" aria-label={`${name} no GitHub`} onclick="event.stopPropagation()">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
-        </a>
+    <div class="project-card__accent"></div>
+    <div class="project-card__body">
+      <div class="project-card__header">
+        <div class="project-card__title-row">
+          <svg class="project-card__icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 0 3-3h7z"/></svg>
+          <h3 class="project-card__name">{name}</h3>
+        </div>
+        <div class="project-card__stats">
+          {stars > 0 && (
+            <span class="project-card__stat" title="Estrelas">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              {stars}
+            </span>
+          )}
+          {forks > 0 && (
+            <span class="project-card__stat" title="Forks">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="18" r="3"/><circle cx="6" cy="6" r="3"/><circle cx="18" cy="6" r="3"/><path d="M18 9v1a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V9"/><path d="M12 12v3"/></svg>
+              {forks}
+            </span>
+          )}
+        </div>
       </div>
-    </div>
-    <p class="project-card__description">{description}</p>
-    <div class="project-card__footer">
-      <div class="project-card__language" style={`--lang-color: ${langColor[language] || '#888'}`}>
-        <span class="project-card__lang-dot"></span>
-        {language}
+      <p class="project-card__description">{description}</p>
+      <div class="project-card__footer">
+        <div class="project-card__topics">
+          {topics.slice(0, 3).map((topic) => (
+            <span class="tag">{topic}</span>
+          ))}
+        </div>
+        <div class="project-card__meta">
+          <span class="project-card__language" style={`--lang-color: ${langColor[language] || '#888'}`}>
+            <span class="project-card__lang-dot"></span>
+            {language}
+          </span>
+          <span class="project-card__external" aria-label={`${name} no GitHub`}>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          </span>
+        </div>
       </div>
-      {topics.slice(0, 3).map((topic) => (
-        <span class="tag">{topic}</span>
-      ))}
     </div>
   </a>
 </article>
@@ -59,38 +69,71 @@ const langColor: Record<string, string> = {
 <style>
   .project-card {
     position: relative;
-    padding: var(--space-lg);
     background: var(--card-bg);
     border: 1px solid var(--border);
-    border-radius: var(--radius-md);
-    transition: all 0.25s ease;
-    display: grid;
+    border-radius: var(--radius-lg);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow: hidden;
+  }
+
+  .project-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent), var(--accent-light));
+    opacity: 0;
+    transition: opacity 0.3s ease;
   }
 
   .project-card:hover {
     border-color: var(--accent);
-    box-shadow: 0 0 0 1px var(--accent-glow);
-    background: var(--card-hover);
+    box-shadow: 0 4px 24px var(--accent-glow), 0 0 0 1px var(--accent-glow);
+    transform: translateY(-2px);
+  }
+
+  .project-card:hover::before {
+    opacity: 1;
   }
 
   .project-card__link {
     text-decoration: none;
     color: inherit;
-    display: grid;
-    grid-template-rows: auto 1fr auto;
-    gap: var(--space-sm);
-    min-height: 170px;
+    display: block;
+    height: 100%;
+  }
+
+  .project-card__body {
+    padding: var(--space-lg);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
   }
 
   .project-card__header {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-start;
     gap: var(--space-md);
   }
 
+  .project-card__title-row {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    min-width: 0;
+  }
+
+  .project-card__icon {
+    color: var(--accent);
+    flex-shrink: 0;
+    opacity: 0.8;
+  }
+
   .project-card__name {
-    font-size: 1.125rem;
+    font-size: 1rem;
     font-weight: 600;
     color: var(--text);
     font-family: var(--font-mono);
@@ -103,14 +146,14 @@ const langColor: Record<string, string> = {
   .project-card__stats {
     display: flex;
     align-items: center;
-    gap: var(--space-sm);
+    gap: var(--space-md);
     flex-shrink: 0;
   }
 
   .project-card__stat {
     display: inline-flex;
     align-items: center;
-    gap: 3px;
+    gap: 4px;
     font-size: 0.75rem;
     color: var(--text-muted);
     font-family: var(--font-mono);
@@ -119,22 +162,41 @@ const langColor: Record<string, string> = {
   .project-card__description {
     font-size: 0.875rem;
     color: var(--text-secondary);
-    line-height: 1.6;
+    line-height: 1.65;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
     overflow: hidden;
+    flex: 1;
   }
 
   .project-card__footer {
     display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: var(--space-md);
+    padding-top: var(--space-sm);
+    border-top: 1px solid var(--border-light);
+  }
+
+  .project-card__topics {
+    display: flex;
     align-items: center;
-    gap: var(--space-sm);
+    gap: var(--space-xs);
     flex-wrap: wrap;
-    min-height: 26px;
+  }
+
+  .project-card__meta {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    flex-shrink: 0;
   }
 
   .project-card__language {
     display: flex;
     align-items: center;
-    gap: 5px;
+    gap: 6px;
     font-size: 0.75rem;
     font-family: var(--font-mono);
     color: var(--text-muted);
@@ -155,5 +217,17 @@ const langColor: Record<string, string> = {
 
   .project-card__external:hover {
     color: var(--accent);
+  }
+
+  @media (max-width: 420px) {
+    .project-card__body {
+      padding: var(--space-md);
+    }
+
+    .project-card__footer {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: var(--space-sm);
+    }
   }
 </style>

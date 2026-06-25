@@ -13,9 +13,20 @@ import pinned from '../../data/pinned-repos.json';
     <div class="container">
       <span class="section-label">Projetos</span>
       <h1>Projetos</h1>
+      <p class="projects-page__subtitle">Repositórios públicos em destaque no meu GitHub</p>
     </div>
     <div class="container">
       <ProjectGrid repos={pinned} />
     </div>
   </section>
 </BaseLayout>
+
+<style>
+  .projects-page__subtitle {
+    font-size: 1.0625rem;
+    color: var(--text-secondary);
+    margin-top: var(--space-sm);
+    margin-bottom: var(--space-2xl);
+    max-width: 500px;
+  }
+</style>

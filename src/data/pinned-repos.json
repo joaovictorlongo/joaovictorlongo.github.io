@@ -9,11 +9,19 @@
     "languages": [
       "TypeScript"
     ],
-    "topics": [],
+    "topics": [
+      "authentication",
+      "bun",
+      "drizzle",
+      "elysia",
+      "jwt",
+      "postgresql",
+      "typescript"
+    ],
     "stars": 0,
     "forks": 0,
     "license": null,
-    "updated_at": "2025-01-11T12:36:13Z",
+    "updated_at": "2026-06-25T23:38:18Z",
     "readme_full": "# Elysia Auth with Bun runtime\n\n## Docker\n\nCreate a .env file in the root folder of the project and define the PostgreSQL database URL as follows:\n\n`DATABASE_URL=postgres://postgres:postgres@localhost:5432/elysiaauth\n`\n\nUsing Docker to set up PostgreSQL with `docker-compose.yml`\n\nRun the following command in the terminal from the project folder:\n\n`sudo docker compose up -d`\n\n## Install dependencies\n\n`bun install`\n\n## Drizzle ORM\n\nThe project uses Drizzle, so it is necessary to run the following command to migrate the database:\n\n`npx drizzle-kit push`\n\n## Development\nTo start the development server run:\n```bash\nbun run dev\n```\n\nOpen http://localhost:3000/ with your browser to see the result.\n\n## Routes\n- POST `/api/auth/sign-up` (Create account)\n- POST `/api/auth/sign-in` (Sign in to valid account)\n- GET `/api/auth/me` (Returns current user)\n- POST `/api/auth/logout` (Logout current user)\n- POST `/api/auth/refresh` (Create new access from existing refresh token)\n",
     "readme_summary": "Create a .env file in the root folder of the project and define the PostgreSQL database URL as follows: DATABASE_URL=postgres://postgres:postgres@localhost:5432/elysiaauth  Using Docker to set up PostgreSQL with docker-compose.yml Run the following command in the terminal from the project folder:"
   },
@@ -33,15 +41,17 @@
     ],
     "topics": [
       "angular",
+      "docker",
       "nestjs",
       "nodejs",
       "postgresql",
-      "puppeteer"
+      "puppeteer",
+      "web-scraping"
     ],
     "stars": 0,
     "forks": 0,
     "license": "MIT",
-    "updated_at": "2026-02-25T02:19:29Z",
+    "updated_at": "2026-06-25T23:38:19Z",
     "readme_full": "# Web Job Scraper\n\n**⚠️ Aviso Importante:** Este projeto é estritamente um **objeto de estudo**. Foi desenvolvido com propósitos educacionais para aprender e praticar diversas tecnologias como web scraping, desenvolvimento fullstack (Angular e NestJS) e orquestração de containers. Não deve ser usado para fins comerciais.\n\n## 🛠️ Tecnologias Utilizadas\n\n- **Backend:** Node.js, [NestJS](https://nestjs.com/), TypeORM, Puppeteer (com `puppeteer-extra-plugin-stealth` para o scraping).\n- **Banco de Dados:** PostgreSQL.\n- **Frontend:** [Angular](https://angular.dev/) (v21+), `ngx-translate` (para internacionalização).\n- **Infraestrutura:** Docker e Docker Compose.\n\n## ✨ Funcionalidades\n\n- **Web Scraping de Vagas:** Coleta automática de listagens de empregos em sites.\n- **Filtro de Localização Parametrizado:** Permite a customização de buscas por país (como filtros específicos para vagas no Brasil).\n- **Visualização de Detalhes:** A interface frontend permite visualizar dados das vagas coletadas através de um modal interativo, que mostra a descrição completa e o link com redirecionamento para a vaga original.\n- **Suporte a Internacionalização (i18n):** Frontend preparado para múltiplos idiomas (Português `pt-BR` e Inglês `en`).\n- **Arquitetura Containerizada:** Banco de Dados, API e Frontend rodam isolados em containers Docker, garantindo que \"funcione em qualquer máquina\".\n- **Comunicação Front-Back:** API desenvolvida em NestJS fornece as vagas persistidas no banco PostgreSQL para consumo no site.\n\n## 🚀 Como Rodar o Projeto (Localmente)\n\nPara executar a aplicação perfeitamente em sua máquina, o único pré-requisito é possuir o **[Docker](https://www.docker.com/)** e o **Docker Compose** instalados.\n\n1. **Abra o terminal e acesse a raiz do projeto:**\n   ```bash\n   cd scrappingjob\n   ```\n\n2. **Suba e construa os containers do projeto:**\n   Execute o seguinte comando para construir as imagens (Frontend e API) e rodar junto ao banco de dados:\n   ```bash\n   docker-compose up --build\n   ```\n   *(Caso queira rodar os logs em segundo plano silenciosamente, adicione a flag `-d` no final).*\n\n3. **Acesse os serviços:**\n   - **Interface Gráfica (Frontend):** Abra o seu navegador e acesse [http://localhost:4200](http://localhost:4200)\n   - **API (Backend):** Roda localmente na porta [http://localhost:3000](http://localhost:3000)\n   - **Banco de Dados (PostgreSQL):** Está exposto pelo Docker na porta `5433` do seu host.\n\n4. **Para desligar a aplicação:**\n   No mesmo terminal onde as aplicações estão rodando, pressione `Ctrl + C` (ou rode `docker-compose down` se usou `-d`).\n\n## Screenshots\n<img width=\"1906\" height=\"946\" alt=\"image\" src=\"https://github.com/user-attachments/assets/0bc23b61-35b1-4972-aa60-71e2af41b35e\" />\n\n\n",
     "readme_summary": "⚠️ Aviso Importante: Este projeto é estritamente um objeto de estudo. Foi desenvolvido com propósitos educacionais para aprender e praticar diversas tecnologias como web scraping, desenvolvimento fullstack (Angular e NestJS) e orquestração de containers. Não deve ser usado para fins comerciais. - Backend: Node.js, NestJS, TypeORM, Puppeteer (com puppeteer-extra-plugin-stealth para o scraping). - Banco de Dados: PostgreSQL. - Frontend: Angular (v21+), ngx-translate (para internacionalização). - Infraestrutura: Docker e Docker Compose."
   },
@@ -58,11 +68,19 @@
       "JavaScript",
       "CSS"
     ],
-    "topics": [],
+    "topics": [
+      "angular",
+      "leaflet",
+      "mobile",
+      "nativescript",
+      "radar",
+      "typescript",
+      "weather"
+    ],
     "stars": 0,
     "forks": 0,
     "license": "MIT",
-    "updated_at": "2026-06-13T17:04:58Z",
+    "updated_at": "2026-06-25T23:38:21Z",
     "readme_full": "# Open Radar\n\n[![Platform](https://img.shields.io/badge/platform-Android%20%7C%20iOS-brightgreen.svg)]()\n[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)\n[![Angular](https://img.shields.io/badge/Angular-20-red.svg)](https://angular.dev)\n[![NativeScript](https://img.shields.io/badge/NativeScript-9.0-blue.svg)](https://nativescript.org)\n[![Leaflet](https://img.shields.io/badge/Leaflet-1.9.4-green.svg)](https://leafletjs.com)\n\n**Open Radar** é um aplicativo mobile nativo Android e iOS de código aberto que exibe dados meteorológicos em tempo real do [IPMet](https://www.ipmetradar.com.br) — radar meteorológico, satélite GOES-19, raios, estações METAR/INMET e estimativa de chuva acumulada — em um mapa interativo com animação e geolocalização.\n\n## Funcionalidades\n\n- **Radar PPI animado** — 8 frames com pré-download e ciclo automático, dados do radar de Bauru-SP\n- **Satélite GOES-19** — imagem infravermelha em tempo real\n- **Chuva Acumulada** — estimativa por radar via WMS nativo\n- **Raios** — descargas atmosféricas em tempo real\n- **METAR / INMET** — estações meteorológicas com temperatura, umidade e vento\n- **Animação automática** — pré-carrega e reproduz frames sequencialmente (1200ms por frame)\n- **Geolocalização** — centraliza o mapa na posição do usuário (zoom 6)\n- **Legendas** — escala dBZ para radar e mm para chuva acumulada\n- **Exclusão mútua** — radar desliga satélite e vice-versa; satélite reativa radar ao desligar\n\n## Captura de Tela\n\n> *Mapa interativo com radar PPI, camadas sobrepostas e barra de controle na parte inferior.*\n\n<img width=\"216\" height=\"480\" alt=\"image\" src=\"https://github.com/user-attachments/assets/c18168f3-0200-471c-b9d9-f667f7865606\" />\n<img width=\"216\" height=\"480\" alt=\"image\" src=\"https://github.com/user-attachments/assets/418d662f-8270-4a88-8d07-40361627bc62\" />\n<img width=\"216\" height=\"480\" alt=\"image\" src=\"https://github.com/user-attachments/assets/7b5d0d3c-74f8-481a-aed5-eea4f2a15542\" />\n\n\n## Stack\n\n| Camada | Tecnologia |\n|--------|-----------|\n| Framework | Angular 20 (standalone components) |\n| Runtime Mobile | NativeScript 9.0 (Android + iOS) |\n| Mapa | Leaflet 1.9.4 via WebView |\n| Geolocalização | `@nativescript/geolocation` |\n| HTTP | `@nativescript/core/http` (com `Referer` header) |\n| Estilos | Tailwind CSS (NativeScript) |\n| Build | Webpack 5 |\n\n\n## Como Executar\n\n```bash\n# Instalar dependências\nnpm install\n\n# Android\nns platform add android\nns run android\n\n# iOS\nns platform add ios\nns run ios\n```\n\n## Arquitetura\n\nO mapa é renderizado dentro de uma **WebView** que carrega um HTML inline contendo Leaflet. A comunicação entre o código TypeScript do Angular e o mapa JavaScript é feita via `evaluateJavascript` (Android) / `evaluateJavaScriptCompletionHandler` (iOS).\n\nAs imagens (radar, satélite, chuva acumulada) são baixadas **nativamente** pelo HTTP client do NativeScript (com header `Referer` obrigatório pelo MapServer 8.0+) e expostas ao WebView via URL `file://`.\n\n### Estrutura\n\n```\nsrc/\n├── app/\n│   ├── map/\n│   │   ├── map.component.ts      # Lógica: WebView, download, animação, toggles\n│   │   ├── map.component.html    # Layout: mapa, botões, barra inferior\n│   │   └── map.template.ts       # HTML/JS Leaflet: camadas, legendas, animação\n│   ├── services/\n│   │   └── ipmet.service.ts      # API calls: lightning, metar, inmet\n│   ├── app.component.ts\n│   └── app.routes.ts\n├── main.ts\n└── polyfills.ts\n```\n## API de Dados\n\n| Endpoint | Descrição |\n|----------|-----------|\n| `ultimo.php` | Timestamp do frame mais recente |\n| `raios.php` | Descargas atmosféricas (GeoJSON) |\n| `metar.php` | Estações METAR (GeoJSON) |\n| `inmet2.php` | Estações INMET (GeoJSON) |\n| `mapserv.fcgi?map=ppi/*.map` | WMS Radar PPI (8 frames históricos) |\n| `mapserv.fcgi?map=acum/ultimo.map` | WMS Chuva Acumulada |\n| `satelite/sat_goes.gif` | Imagem de satélite GOES-19 |\n\n## Licença\n\nMIT © [João Longo](https://github.com/anomalyco)\n\nDados meteorológicos fornecidos pelo [IPMet](https://www.ipmetradar.com.br) — Centro de Meteorologia de Bauru, FC/Unesp.\n",
     "readme_summary": "![Platform]() ![License](LICENSE) ![Angular](https://angular.dev) ![NativeScript](https://nativescript.org) ![Leaflet](https://leafletjs.com)"
   },
@@ -78,12 +96,20 @@
       "HTML",
       "JavaScript"
     ],
-    "topics": [],
+    "topics": [
+      "cli",
+      "ink",
+      "nodejs",
+      "spotify",
+      "terminal",
+      "tui",
+      "typescript"
+    ],
     "stars": 0,
     "forks": 0,
     "license": "MIT",
-    "updated_at": "2026-06-21T12:03:37Z",
-    "readme_full": null,
-    "readme_summary": null
+    "updated_at": "2026-06-25T23:38:23Z",
+    "readme_full": "# SpotiCLI\n\nSpotify no terminal. Aplicativo TUI construído com **Node.js**, **TypeScript** e **Ink**.\n\n## Screenshot\n\n<img width=\"1643\" height=\"600\" alt=\"image\" src=\"https://github.com/user-attachments/assets/359ffed0-8e62-4fb1-80ee-7f2d7b3367a2\" />\n\n\n## Requisitos\n\n- Node.js >= 22\n- Uma conta de desenvolvedor no [Spotify Dashboard](https://developer.spotify.com/dashboard)\n- Conta Spotify **Premium** (necessária para o device Spotify Connect)\n- [spotifyd](https://github.com/Spotifyd/spotifyd) (instalado automaticamente via Homebrew no macOS)\n\n## Configuração\n\n1. Clone o repositório e instale as dependências:\n\n```bash\nnpm install\n```\n\n2. Crie um app no Spotify Dashboard e adicione o redirect URI:\n\n```\nhttp://127.0.0.1:7777/callback\n```\n\n3. Copie o `.env.example` para `.env` e preencha seu Client ID:\n\n```bash\ncp .env.example .env\n```\n\n```env\nSPOTIFY_CLIENT_ID=seu_client_id_aqui\n```\n\n## Uso\n\nO comando principal executa o SpotiCLI, faz login se necessário, sobe o device Spotify Connect (spotifyd) e abre a interface:\n\n```bash\n# Comando único: login → device → app\nnpm run play\n```\n\n### Gerenciamento do device Spotify Connect\n\nO SpotiCLI pode rodar o **spotifyd** como um device Spotify Connect, eliminando a necessidade de ter o Spotify aberto em outro aparelho.\n\n```bash\n# Configurar device (abre navegador para autenticar)\nnpm run device:setup\n\n# Iniciar device em background\nnpm run device:start\n\n# Verificar status\nnpm run device:status\n\n# Parar device\nnpm run device:stop\n\n# Reiniciar\nnpm run device:restart\n```\n\n### Navegação\n\n- Use as setas `←/→` para trocar abas (Playlists, Artistas, Álbuns, Busca).\n- Use `↑/↓` para navegar nas listas.\n- `Enter` abre o item selecionado.\n- `Esc` limpa campo de busca ou filtro; se já vazio, volta.\n- `b` volta para a tela anterior.\n- `q` sai do aplicativo.\n\n#### Busca\n\n- A aba **Busca** permite pesquisar no Spotify por playlists, artistas, álbuns e músicas.\n- Resultados são exibidos com tags coloridas: `[Playlist]`, `[Artista]`, `[Álbum]`, `[Música]`.\n- Álbuns e músicas exibem um preview de capa via bloco Unicode colorido (experimental).\n- Apenas playlists que você possui ou colabora aparecem nos resultados.\n\n#### Filtro local\n\n- Dentro de uma **playlist**, **álbum** ou **artista**, pressione `/` para filtrar itens localmente.\n- O filtro busca por nome e artista, ignorando acentos e maiúsculas/minúsculas.\n- Com filtro ativo, o app carrega páginas extras automaticamente para buscar em toda a coleção.\n- `Esc` limpa o filtro.\n\n#### Player\n\n- A barra inferior mostra a música atual, progresso e dispositivo.\n- A Spotify Web API não transmite áudio: o SpotiCLI controla um app Spotify já ativo (Desktop, Web ou mobile).\n- Se nenhum dispositivo estiver ativo, pressione `d` para selecionar.\n- Para não depender de outro dispositivo, use `npm run play` — ele sobe o **spotifyd** como um device Spotify Connect próprio.\n- Atalhos globais (exceto na aba de busca):\n  - `Espaço` — Play / Pause\n  - `n` — Próxima\n  - `p` — Anterior\n  - `s` — Shuffle\n  - `r` — Repeat (off → faixa → contexto)\n  - `+` / `-` — Volume\n  - `d` — Selecionar dispositivo de reprodução\n  - `t` — Tocar playlist/álbum selecionado\n- Dentro de playlist/álbum: `Enter` toca a faixa selecionada.\n\n#### Abas\n\n- **Playlists**, **Artistas**, **Álbuns**, **Busca** e **Recentes**.\n- A aba **Recentes** mostra o histórico de músicas tocadas.\n\n### Comandos auxiliares\n\n```bash\n# Comando único (login + device + app)\nnpm run play\n\n# Login manual\nnpm run dev -- login\n\n# Status de autenticação\nnpm run dev -- status\n\n# Logout (remove credenciais)\nnpm run dev -- logout\n\n# Abrir biblioteca diretamente (sem device)\nnpm run dev -- app\n```\n\n## Scripts de desenvolvimento\n\n```bash\nnpm run dev          # executa a CLI em desenvolvimento\nnpm run play         # login + device + app\nnpm run build        # compila TypeScript\nnpm run typecheck    # verifica tipos\nnpm run lint         # ESLint\nnpm run lint:fix     # ESLint com --fix\nnpm run format       # Prettier\nnpm run format:check # verifica formatação\nnpm test             # testes unitários e E2E\n\n# Device Spotify Connect\nnpm run device:setup   # autentica o spotifyd\nnpm run device:start   # inicia o device\nnpm run device:stop    # para o device\nnpm run device:restart # reinicia o device\nnpm run device:status  # status do device\n```\n\n## Padrões de código\n\n- Código em TypeScript com `strict: true`.\n- ESLint + Prettier + Husky validam cada commit.\n- Princípios de Clean Code: funções pequenas, nomes intencionais.\n- Evitar `else` / `else if`; preferir guard clauses e early returns.\n- Cada fase entrega testes com Jest antes do PR.\n\n## Licença\n\nMIT\n",
+    "readme_summary": "Spotify no terminal. Aplicativo TUI construído com Node.js, TypeScript e Ink. <img width=\"1643\" height=\"600\" alt=\"image\" src=\"https://github.com/user-attachments/assets/359ffed0-8e62-4fb1-80ee-7f2d7b3367a2\" /> - Node.js >= 22 - Uma conta de desenvolvedor no Spotify Dashboard - Conta Spotify Premium (necessária para o device Spotify Connect)"
   }
 ]

@@ -10,8 +10,9 @@
   "email": "",
   "hireable": true,
   "bio": [
-    "Desenvolvedor fullstack com experiência em TypeScript, Node.js, Angular, React e infraestrutura containerizada. Atualmente na Field Control, onde construo soluções que transformam dados em decisões.",
-    "Sou movido por criar ferramentas que resolvem problemas reais — seja um CLI para controlar o Spotify no terminal, um radar meteorológico open source no bolso, ou sistemas de autenticação seguros e escaláveis."
+    "Desenvolvedor fullstack atuando desde 2016 no setor de tecnologia. Trabalho com JavaScript e TypeScript para construir soluções de ponta a ponta, do backend à interface, em colaboração direta com clientes e equipes de produto.",
+    "Iniciei a carreira em sistemas ERP desktop, onde atuei por cerca de 5 anos no desenvolvimento, implantação e suporte técnico para uma base de 50 a 200 clientes e aproximadamente 1 mil usuários ativos. Essa fase me deu visão completa do ciclo de vida do software — do código ao contato direto com quem usa o sistema no dia a dia.",
+    "Há 4 anos trabalho em um aplicativo de gestão de serviços externos com mais de 5 mil clientes e 40 mil usuários. Atuo com sistemas distribuídos e infraestrutura em cloud AWS, utilizando Node.js, Nest.js, GraphQL, Angular e PostgreSQL. Backend e cloud são as áreas que mais me motivam atualmente — entender como os sistemas se comunicam, escalam e lidam com dados em produção."
   ],
   "skills": [
     "TypeScript",
