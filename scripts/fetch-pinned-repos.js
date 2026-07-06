@@ -38,7 +38,7 @@ async function fetchReadme(repo) {
 }
 
 async function main() {
-  const pinned = ['elysia-auth', 'scrappingjob', 'open-radar', 'spoticli'];
+  const pinned = ['elysia-auth', 'scrappingjob', 'open-radar', 'spoticli', 'tt-video-downloader'];
 
   const repos = await Promise.all(
     pinned.map(async (name) => {
