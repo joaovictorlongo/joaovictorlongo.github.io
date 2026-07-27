@@ -1,0 +1,36 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ProjectGrid from '../../components/ProjectGrid.astro';
+import pinned from '../../data/pinned-repos.json';
+import { copy, getLocale } from '../../data/i18n';
+
+const locale = getLocale(Astro.url.pathname);
+const ui = copy[locale];
+---
+
+<BaseLayout
+  title={`${ui.projects.pageTitle} — João Victor Longo`}
+  description={ui.projects.pageSubtitle}
+  url="https://joaovictorlongo.github.io/projects"
+>
+  <section class="projects-page">
+    <div class="container">
+      <span class="section-label">{ui.projects.sectionLabel}</span>
+      <h1>{ui.projects.pageTitle}</h1>
+      <p class="projects-page__subtitle">{ui.projects.pageSubtitle}</p>
+    </div>
+    <div class="container">
+      <ProjectGrid repos={pinned} />
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .projects-page__subtitle {
+    font-size: 1.0625rem;
+    color: var(--text-secondary);
+    margin-top: var(--space-sm);
+    margin-bottom: var(--space-2xl);
+    max-width: 500px;
+  }
+</style>

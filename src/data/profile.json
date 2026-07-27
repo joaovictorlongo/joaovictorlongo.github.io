@@ -1,7 +1,7 @@
 {
   "name": "João Victor Longo",
-  "role": "Desenvolvedor Fullstack",
-  "tagline": "Construindo produtos digitais que conectam dados, interfaces e pessoas.",
+  "role": "AI Engineer & Fullstack Developer",
+  "tagline": "Building AI-first products, premium interfaces, and reliable systems that turn data into useful experiences.",
   "location": "São José do Rio Preto — SP",
   "company": "Field Control",
   "avatar": "https://avatars.githubusercontent.com/u/43239578?v=4",
@@ -10,9 +10,9 @@
   "email": "",
   "hireable": true,
   "bio": [
-    "Desenvolvedor fullstack atuando desde 2016 no setor de tecnologia. Trabalho com JavaScript e TypeScript para construir soluções de ponta a ponta, do backend à interface, em colaboração direta com clientes e equipes de produto.",
+    "Desenvolvedor fullstack atuando desde 2016 no setor de tecnologia. Trabalho com JavaScript, TypeScript e práticas de AI engineering para construir soluções de ponta a ponta, do backend à interface, em colaboração direta com clientes e equipes de produto.",
     "Iniciei a carreira em sistemas ERP desktop, onde atuei por cerca de 5 anos no desenvolvimento, implantação e suporte técnico para uma base de 50 a 200 clientes e aproximadamente 1 mil usuários ativos. Essa fase me deu visão completa do ciclo de vida do software — do código ao contato direto com quem usa o sistema no dia a dia.",
-    "Há 4 anos trabalho em um aplicativo de gestão de serviços externos com mais de 5 mil clientes e 40 mil usuários. Atuo com sistemas distribuídos e infraestrutura em cloud AWS, utilizando Node.js, Nest.js, GraphQL, Angular e PostgreSQL. Backend e cloud são as áreas que mais me motivam atualmente — entender como os sistemas se comunicam, escalam e lidam com dados em produção."
+    "Há 4 anos trabalho em um aplicativo de gestão de serviços externos com mais de 5 mil clientes e 40 mil usuários. Atuo com sistemas distribuídos e infraestrutura em cloud AWS, utilizando Node.js, Nest.js, GraphQL, Angular e PostgreSQL. Backend, cloud e automação inteligente são as áreas que mais me motivam atualmente — entender como os sistemas se comunicam, escalam e lidam com dados em produção."
   ],
   "skills": [
     "TypeScript",
@@ -28,6 +28,9 @@
     "Elysia",
     "NativeScript",
     "Puppeteer",
-    "HTML & CSS"
+    "HTML & CSS",
+    "LLMs",
+    "AI Products",
+    "Automation"
   ]
 }

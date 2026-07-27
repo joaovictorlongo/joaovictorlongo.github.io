@@ -42,7 +42,7 @@
       }
     };
 
-    const current = stored === 'light' || stored === 'dark' ? stored : 'system';
+    const current = stored === 'light' || stored === 'dark' ? stored : 'dark';
     applyTheme(current);
 
     toggle?.addEventListener('click', () => {

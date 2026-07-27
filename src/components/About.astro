@@ -1,15 +1,17 @@
 ---
 import profile from '../data/profile.json';
+import { copy, getLocale } from '../data/i18n';
+
+const locale = getLocale(Astro.url.pathname);
+const ui = copy[locale];
 ---
 
-<section class="about" aria-label="Sobre mim">
+<section class="about" aria-label={ui.about.sectionLabel}>
   <div class="container--text">
-    <span class="section-label fade-in">Sobre</span>
-    <h2 class="about__title fade-in">
-      Quem sou
-    </h2>
+    <span class="section-label fade-in">{ui.about.sectionLabel}</span>
+    <h2 class="about__title fade-in">{ui.about.title}</h2>
     {
-      profile.bio.map((paragraph, i) => (
+      ui.about.bio.map((paragraph, i) => (
         <p class="about__text fade-in" style={`animation-delay: ${0.2 + i * 0.15}s`}>
           {paragraph}
         </p>
@@ -17,24 +19,24 @@ import profile from '../data/profile.json';
     }
     <div class="about__meta fade-in" style="animation-delay: 0.5s">
       <div class="about__meta-item">
-        <span class="about__meta-label">Localização</span>
+        <span class="about__meta-label">{ui.about.location}</span>
         <span class="about__meta-value">{profile.location}</span>
       </div>
       <div class="about__meta-item">
-        <span class="about__meta-label">E-mail</span>
+        <span class="about__meta-label">{ui.about.email}</span>
         <div class="about__email-row">
           <span class="about__meta-value">joaovictorlongoo@gmail.com</span>
-          <button class="about__copy-btn" id="copyEmailBtn" aria-label="Copiar e-mail">
+          <button class="about__copy-btn" id="copyEmailBtn" aria-label={ui.about.email}>
             <svg class="about__copy-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-            <span class="about__copy-text">Copiar</span>
+            <span class="about__copy-text">{ui.about.copy}</span>
           </button>
         </div>
       </div>
     </div>
     <div class="about__skills fade-in" style="animation-delay: 0.6s">
-      <h3 class="about__skills-title">Stack</h3>
+      <h3 class="about__skills-title">{ui.about.stack}</h3>
       <div class="about__skills-list">
-        {profile.skills.map((skill) => (
+        {ui.about.skills.map((skill) => (
           <span class="tag">{skill}</span>
         ))}
       </div>
@@ -44,7 +46,11 @@ import profile from '../data/profile.json';
 
 <style>
   .about {
-    background: var(--bg-surface);
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.02), transparent 24%),
+      var(--bg-surface);
+    border-top: 1px solid var(--border-light);
+    border-bottom: 1px solid var(--border-light);
   }
 
   .about__title {
@@ -52,9 +58,9 @@ import profile from '../data/profile.json';
   }
 
   .about__text {
-    color: var(--text-secondary);
+    color: var(--text);
     font-size: 1.0625rem;
-    line-height: 1.8;
+    line-height: 1.85;
     margin-bottom: var(--space-md);
   }
 
@@ -63,9 +69,9 @@ import profile from '../data/profile.json';
     gap: var(--space-2xl);
     margin-top: var(--space-xl);
     padding: var(--space-lg);
-    background: var(--bg);
+    background: var(--bg-muted);
     border-radius: var(--radius-md);
-    border: 1px solid var(--border-light);
+    border: 1px solid var(--border);
   }
 
   .about__meta-item {
@@ -85,6 +91,7 @@ import profile from '../data/profile.json';
   .about__meta-value {
     font-size: 0.9375rem;
     font-weight: 500;
+    color: var(--text);
   }
 
   .about__email-row {
@@ -131,7 +138,7 @@ import profile from '../data/profile.json';
     font-size: 0.875rem;
     font-weight: 600;
     margin-bottom: var(--space-md);
-    color: var(--text-secondary);
+    color: var(--text);
   }
 
   .about__skills-list {
@@ -157,10 +164,10 @@ import profile from '../data/profile.json';
         await navigator.clipboard.writeText('joaovictorlongoo@gmail.com');
         btn.classList.add('copied');
         const textEl = btn.querySelector('.about__copy-text');
-        if (textEl) textEl.textContent = 'Copiado!';
+        if (textEl) textEl.textContent = ui.about.copied;
         setTimeout(() => {
           btn.classList.remove('copied');
-          if (textEl) textEl.textContent = 'Copiar';
+          if (textEl) textEl.textContent = ui.about.copy;
         }, 2000);
       } catch {
         const input = document.createElement('input');
@@ -173,10 +180,10 @@ import profile from '../data/profile.json';
         document.body.removeChild(input);
         btn.classList.add('copied');
         const textEl = btn.querySelector('.about__copy-text');
-        if (textEl) textEl.textContent = 'Copiado!';
+        if (textEl) textEl.textContent = ui.about.copied;
         setTimeout(() => {
           btn.classList.remove('copied');
-          if (textEl) textEl.textContent = 'Copiar';
+          if (textEl) textEl.textContent = ui.about.copy;
         }, 2000);
       }
     });

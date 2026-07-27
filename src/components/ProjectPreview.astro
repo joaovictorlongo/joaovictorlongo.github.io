@@ -1,13 +1,17 @@
 ---
+import { getLocale, projectPath } from '../data/i18n';
+
 export interface Props {
   name: string;
   description: string;
   language: string;
   topics: string[];
   slug: string;
+  locale?: 'en-US' | 'pt-BR';
 }
 
-const { name, description, language, topics, slug } = Astro.props;
+const { name, description, language, topics, slug, locale: propLocale } = Astro.props;
+const locale = propLocale ?? getLocale(Astro.url.pathname);
 const langColor: Record<string, string> = {
   TypeScript: '#3178c6',
   JavaScript: '#f7df1e',
@@ -18,7 +22,7 @@ const langColor: Record<string, string> = {
 const truncated = description.length > 120 ? description.slice(0, 117) + '...' : description;
 ---
 
-<a href={`/projeto/${slug}`} class="project-preview fade-in" aria-label={`Ver detalhes do projeto ${name}`}>
+<a href={projectPath(locale, slug)} class="project-preview fade-in" aria-label={`${locale === 'en-US' ? 'View project details' : 'Ver detalhes do projeto'} ${name}`}>
   <h3 class="project-preview__name">{name}</h3>
   <p class="project-preview__description">{truncated}</p>
   <div class="project-preview__footer">

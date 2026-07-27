@@ -1,6 +1,9 @@
 ---
+import { copy, getLocale } from '../data/i18n';
 
 const year = new Date().getFullYear();
+const locale = getLocale(Astro.url.pathname);
+const ui = copy[locale];
 ---
 
 <footer class="footer">
@@ -14,7 +17,7 @@ const year = new Date().getFullYear();
       </a>
     </div>
     <p class="footer__copy">
-      &copy; {year} João Victor Longo
+      &copy; {year} João Victor Longo — {ui.footer.rights}
     </p>
   </div>
 </footer>
