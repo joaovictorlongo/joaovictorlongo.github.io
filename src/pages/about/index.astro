@@ -1,0 +1,16 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import About from '../../components/About.astro';
+import { copy, getLocale } from '../../data/i18n';
+
+const locale = getLocale(Astro.url.pathname);
+const ui = copy[locale];
+---
+
+<BaseLayout
+  title={`${ui.nav.about} — João Victor Longo`}
+  description={ui.about.bio[0]}
+  url="https://joaovictorlongo.github.io/about"
+>
+  <About />
+</BaseLayout>

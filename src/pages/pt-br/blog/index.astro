@@ -1,6 +1,6 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import { copy, getLocale } from '../../data/i18n';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { copy, getLocale } from '../../../data/i18n';
 
 const locale = getLocale(Astro.url.pathname);
 const ui = copy[locale];
@@ -11,9 +11,7 @@ const ui = copy[locale];
     <div class="container--text">
       <span class="section-label fade-in">{ui.blog.sectionLabel}</span>
       <h1 class="blog__title fade-in">{ui.blog.title}</h1>
-      <p class="blog__empty fade-in">
-        {ui.blog.subtitle}
-      </p>
+      <p class="blog__empty fade-in">{ui.blog.emptyBody}</p>
     </div>
   </div>
 </BaseLayout>

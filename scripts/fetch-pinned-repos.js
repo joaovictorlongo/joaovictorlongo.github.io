@@ -40,38 +40,50 @@ async function fetchReadme(repo) {
 async function main() {
   const pinned = ['elysia-auth', 'scrappingjob', 'open-radar', 'spoticli', 'tt-video-downloader'];
 
-  const repos = await Promise.all(
-    pinned.map(async (name) => {
-      const repo = await fetchJSON(
-        `https://api.github.com/repos/${USER}/${name}`
-      );
-      const languages = await fetchJSON(
-        `https://api.github.com/repos/${USER}/${name}/languages`
-      );
-      const readme = await fetchReadme(name);
-      return {
-        name: repo.name,
-        full_name: repo.full_name,
-        description: repo.description || readme.summary || '',
-        url: repo.html_url,
-        homepage: repo.homepage || '',
-        language: repo.language,
-        languages: Object.keys(languages),
-        topics: repo.topics || [],
-        stars: repo.stargazers_count,
-        forks: repo.forks_count,
-        license: repo.license?.spdx_id || null,
-        updated_at: repo.updated_at,
-        readme_full: readme.full,
-        readme_summary: readme.summary,
-      };
-    })
-  );
+  try {
+    const repos = await Promise.all(
+      pinned.map(async (name) => {
+        const repo = await fetchJSON(
+          `https://api.github.com/repos/${USER}/${name}`
+        );
+        const languages = await fetchJSON(
+          `https://api.github.com/repos/${USER}/${name}/languages`
+        );
+        const readme = await fetchReadme(name);
+        return {
+          name: repo.name,
+          full_name: repo.full_name,
+          description: repo.description || readme.summary || '',
+          url: repo.html_url,
+          homepage: repo.homepage || '',
+          language: repo.language,
+          languages: Object.keys(languages),
+          topics: repo.topics || [],
+          stars: repo.stargazers_count,
+          forks: repo.forks_count,
+          license: repo.license?.spdx_id || null,
+          updated_at: repo.updated_at,
+          readme_full: readme.full,
+          readme_summary: readme.summary,
+        };
+      })
+    );
 
-  const dir = dirname(OUTPUT);
-  if (!existsSync(dir)) mkdirSync(dir, { recursive: true });
-  writeFileSync(OUTPUT, JSON.stringify(repos, null, 2));
-  console.log(`Fetched ${repos.length} pinned repos → ${OUTPUT}`);
+    const dir = dirname(OUTPUT);
+    if (!existsSync(dir)) mkdirSync(dir, { recursive: true });
+    writeFileSync(OUTPUT, JSON.stringify(repos, null, 2));
+    console.log(`Fetched ${repos.length} pinned repos → ${OUTPUT}`);
+  } catch (error) {
+    if (existsSync(OUTPUT)) {
+      console.warn(`Using cached pinned repos → ${OUTPUT}`);
+      return;
+    }
+
+    throw error;
+  }
 }
 
-main().catch(console.error);
+main().catch((error) => {
+  console.error(error);
+  process.exitCode = 1;
+});

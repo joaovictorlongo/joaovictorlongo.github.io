@@ -1,19 +1,26 @@
 ---
 import ThemeToggle from './ThemeToggle.astro';
+import { alternatePath, copy, getLocale } from '../data/i18n';
+
+const locale = getLocale(Astro.url.pathname);
+const ui = copy[locale];
+const switchPath = alternatePath(Astro.url.pathname, locale);
 ---
 
 <header class="header">
   <div class="header__inner container">
-    <a href="/" class="header__logo" aria-label="Página inicial">
-      <span class="header__logo-text">jl</span>
+    <a href={locale === 'en-US' ? '/' : '/pt-br'} class="header__logo" aria-label="Home">
+      <span class="header__logo-text">jvl</span>
       <span class="header__logo-dot">.</span>
     </a>
-    <nav class="header__nav" aria-label="Navegação principal">
-      <a href="/sobre" class="header__link">Sobre</a>
-      <a href="/projetos" class="header__link">Projetos</a>
-      <a href="/blog" class="header__link">Blog</a>
+    <span class="header__badge">{ui.headerBadge}</span>
+    <nav class="header__nav" aria-label={locale === 'en-US' ? 'Main navigation' : 'Navegação principal'}>
+      <a href={locale === 'en-US' ? '/about' : '/sobre'} class="header__link">{ui.nav.about}</a>
+      <a href={locale === 'en-US' ? '/projects' : '/projetos'} class="header__link">{ui.nav.projects}</a>
+      <a href={locale === 'en-US' ? '/blog' : '/pt-br/blog'} class="header__link">{ui.nav.blog}</a>
     </nav>
     <div class="header__actions">
+      <a class="header__locale" href={switchPath}>{ui.localeSwitch}</a>
       <ThemeToggle />
     </div>
   </div>
@@ -49,6 +56,21 @@ import ThemeToggle from './ThemeToggle.astro';
 
   .header__logo-dot {
     color: var(--accent);
+  }
+
+  .header__badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 5px 10px;
+    border-radius: 999px;
+    border: 1px solid var(--border-light);
+    background: var(--bg-surface);
+    color: var(--text-secondary);
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    white-space: nowrap;
   }
 
   .header__nav {
@@ -92,7 +114,35 @@ import ThemeToggle from './ThemeToggle.astro';
     gap: var(--space-sm);
   }
 
+  .header__locale {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 64px;
+    padding: 5px 10px;
+    border-radius: 999px;
+    border: 1px solid var(--border);
+    background: var(--bg-surface);
+    color: var(--text-secondary);
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.08em;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: all 0.2s ease;
+  }
+
+  .header__locale:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    background: var(--tag-bg);
+  }
+
   @media (max-width: 640px) {
+    .header__badge {
+      display: none;
+    }
+
     .header__nav {
       gap: var(--space-md);
     }

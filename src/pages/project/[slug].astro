@@ -1,0 +1,588 @@
+---
+import { marked } from 'marked';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import pinned from '../../data/pinned-repos.json';
+import { copy, getLocale } from '../../data/i18n';
+
+export async function getStaticPaths() {
+  return pinned.map((repo) => ({
+    params: { slug: repo.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') },
+    props: { repo },
+  }));
+}
+
+const { repo } = Astro.props;
+const locale = getLocale(Astro.url.pathname);
+const ui = copy[locale].projects;
+const langColor: Record<string, string> = {
+  TypeScript: '#3178c6',
+  JavaScript: '#f7df1e',
+  HTML: '#e34f26',
+  CSS: '#1572b6',
+  Dockerfile: '#2496ed',
+};
+
+const readmeHtml = repo.readme_full
+  ? marked.parse(repo.readme_full, { breaks: true, gfm: true })
+  : '';
+
+const headings: Array<{ level: number; text: string; id: string }> = [];
+if (readmeHtml) {
+  const headingRegex = /<h([1-3])[^>]*>(.*?)<\/h\1>/g;
+  let match;
+  while ((match = headingRegex.exec(readmeHtml)) !== null) {
+    const text = match[2].replace(/<[^>]+>/g, '').trim();
+    const id = text.toLowerCase().replace(/[^\w]+/g, '-').replace(/-+$/, '');
+    headings.push({ level: parseInt(match[1]), text, id });
+  }
+}
+
+const langCount = repo.languages.length;
+
+const formatDate = (dateStr: string) => {
+  const d = new Date(dateStr);
+  return d.toLocaleDateString(locale, { day: '2-digit', month: 'short', year: 'numeric' });
+};
+---
+
+<BaseLayout
+  title={`${repo.name} — ${repo.description || 'Project'}`}
+  description={repo.description}
+  url={`https://joaovictorlongo.github.io/project/${repo.name}`}
+  type="article"
+>
+  <div class="project-page">
+    <div class="container">
+      <a href="/projects" class="project-page__back">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+        {ui.detailBack}
+      </a>
+
+      <div class="project-page__layout">
+        <div class="project-page__main">
+          <header class="project-page__header">
+            <div class="project-page__title-row">
+              <svg class="project-page__repo-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 0 3-3h7z"/></svg>
+              <h1 class="project-page__title">{repo.name}</h1>
+            </div>
+            <p class="project-page__desc">{repo.description}</p>
+          </header>
+
+          {readmeHtml ? (
+            <div class="readme-body">
+              {headings.length > 0 && (
+                <nav class="readme-toc" aria-label={ui.detailToc}>
+                  <span class="readme-toc__label">{ui.detailToc}</span>
+                  <ul class="readme-toc__list">
+                    {headings.map((h) => (
+                      <li class={`readme-toc__item readme-toc__item--h${h.level}`}><a href={`#${h.id}`}>{h.text}</a></li>
+                    ))}
+                  </ul>
+                </nav>
+              )}
+              <div class="readme-content" id="readme-content" set:html={readmeHtml} />
+            </div>
+          ) : (
+            <p class="project-page__no-readme">{repo.description}</p>
+          )}
+
+          <footer class="project-page__footer">
+            <div class="project-page__actions">
+              <a href={repo.url} target="_blank" rel="noopener noreferrer" class="btn btn--primary">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+                {ui.detailGithub}
+              </a>
+              {repo.homepage && (
+                <a href={repo.homepage} target="_blank" rel="noopener noreferrer" class="btn btn--ghost">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                  {ui.detailDemo}
+                </a>
+              )}
+            </div>
+          </footer>
+        </div>
+
+        <aside class="project-page__sidebar">
+          <div class="sidebar-card">
+            <h3 class="sidebar-card__title">{ui.detailAbout}</h3>
+            <div class="sidebar-card__stats">
+              <div class="sidebar-stat">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                <span>{repo.stars} {ui.detailStars}</span>
+              </div>
+              <div class="sidebar-stat">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="18" r="3"/><circle cx="6" cy="6" r="3"/><circle cx="18" cy="6" r="3"/><path d="M18 9v1a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V9"/><path d="M12 12v3"/></svg>
+                <span>{repo.forks} {ui.detailForks}</span>
+              </div>
+              {repo.license && (
+                <div class="sidebar-stat">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                  <span>{repo.license}</span>
+                </div>
+              )}
+              <div class="sidebar-stat">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                <span>{ui.detailUpdated} {formatDate(repo.updated_at)}</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="sidebar-card">
+            <h3 class="sidebar-card__title">{ui.detailLanguages}</h3>
+            <div class="lang-bar">
+              {repo.languages.map((lang: string) => {
+                const color = langColor[lang] || '#888';
+                const pct = (100 / langCount);
+                return (
+                  <div
+                    class="lang-bar__segment"
+                    style={`--seg-color: ${color}; --seg-width: ${pct}%`}
+                    title={lang}
+                  />
+                );
+              })}
+            </div>
+            <ul class="lang-list">
+              {repo.languages.map((lang: string) => (
+                <li class="lang-list__item" style="--lang-color: ${langColor[lang] || '#888'}">
+                  <span class="lang-list__dot"></span>
+                  <span class="lang-list__name">{lang}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {repo.topics.length > 0 && (
+            <div class="sidebar-card">
+              <h3 class="sidebar-card__title">{ui.detailTechnologies}</h3>
+              <div class="sidebar-card__topics">
+                {repo.topics.map((topic: string) => (
+                  <span class="tag">{topic}</span>
+                ))}
+              </div>
+            </div>
+          )}
+        </aside>
+      </div>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .project-page {
+    padding: var(--space-3xl) 0 var(--space-5xl);
+  }
+
+  .project-page__back {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.8125rem;
+    color: var(--text-muted);
+    margin-bottom: var(--space-xl);
+    text-decoration: none;
+    font-family: var(--font-mono);
+    font-weight: 500;
+    transition: color 0.2s ease;
+  }
+
+  .project-page__back:hover {
+    color: var(--accent);
+  }
+
+  .project-page__layout {
+    display: grid;
+    grid-template-columns: 1fr 280px;
+    gap: var(--space-2xl);
+    align-items: start;
+  }
+
+  .project-page__header {
+    margin-bottom: var(--space-xl);
+    padding-bottom: var(--space-lg);
+    border-bottom: 1px solid var(--border-light);
+  }
+
+  .project-page__title-row {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-sm);
+  }
+
+  .project-page__repo-icon {
+    color: var(--text-muted);
+    flex-shrink: 0;
+  }
+
+  .project-page__title {
+    font-family: var(--font-mono);
+    font-size: 1.5rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+  }
+
+  .project-page__desc {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    max-width: 640px;
+  }
+
+  .readme-body {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: var(--space-2xl);
+    align-items: start;
+  }
+
+  .readme-toc {
+    position: sticky;
+    top: calc(60px + var(--space-lg));
+  }
+
+  .readme-toc__label {
+    display: block;
+    font-size: 0.6875rem;
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--text-muted);
+    margin-bottom: var(--space-sm);
+    font-weight: 600;
+  }
+
+  .readme-toc__list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    border-left: 1px solid var(--border-light);
+    padding-left: var(--space-sm);
+  }
+
+  .readme-toc__item {
+    font-size: 0.8125rem;
+    line-height: 1.5;
+  }
+
+  .readme-toc__item--h2 { padding-left: var(--space-sm); }
+  .readme-toc__item--h3 { padding-left: calc(var(--space-sm) * 2); }
+
+  .readme-toc__item a {
+    color: var(--text-muted);
+    text-decoration: none;
+    display: block;
+    padding: 3px 0;
+    transition: color 0.15s ease;
+  }
+
+  .readme-toc__item a:hover {
+    color: var(--accent);
+  }
+
+  .readme-content {
+    font-size: 0.9375rem;
+    line-height: 1.8;
+    color: var(--text-secondary);
+    min-width: 0;
+  }
+
+  .readme-content h1,
+  .readme-content h2,
+  .readme-content h3 {
+    font-family: var(--font-body);
+    color: var(--text);
+    margin-top: var(--space-2xl);
+    margin-bottom: var(--space-md);
+    font-weight: 600;
+    scroll-margin-top: calc(60px + var(--space-lg));
+  }
+
+  .readme-content h1 { font-size: 1.5rem; }
+  .readme-content h2 { font-size: 1.25rem; }
+  .readme-content h3 { font-size: 1.0625rem; }
+
+  .readme-content h1:first-child,
+  .readme-content h2:first-child,
+  .readme-content h3:first-child {
+    margin-top: 0;
+  }
+
+  .readme-content p {
+    margin-bottom: var(--space-md);
+  }
+
+  .readme-content ul,
+  .readme-content ol {
+    margin-bottom: var(--space-md);
+    padding-left: var(--space-lg);
+  }
+
+  .readme-content li {
+    margin-bottom: var(--space-xs);
+  }
+
+  .readme-content code {
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    background: var(--bg-muted);
+    padding: 2px 6px;
+    border-radius: var(--radius-sm);
+    color: var(--accent-dark);
+  }
+
+  [data-theme="dark"] .readme-content code {
+    color: var(--accent-light);
+  }
+
+  .readme-content pre {
+    background: var(--bg-muted);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-md);
+    padding: var(--space-md);
+    overflow-x: auto;
+    margin-bottom: var(--space-md);
+  }
+
+  .readme-content pre code {
+    background: none;
+    padding: 0;
+    border-radius: 0;
+    font-size: 0.8125rem;
+  }
+
+  .readme-content a {
+    color: var(--accent);
+    text-decoration: none;
+  }
+
+  .readme-content a:hover {
+    color: var(--accent-light);
+    text-decoration: underline;
+  }
+
+  .readme-content img {
+    max-width: 100%;
+    border-radius: var(--radius-md);
+    margin: var(--space-md) 0;
+    border: 1px solid var(--border-light);
+  }
+
+  .readme-content blockquote {
+    border-left: 3px solid var(--accent);
+    padding: var(--space-sm) var(--space-md);
+    margin: var(--space-md) 0;
+    background: var(--tag-bg);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    color: var(--text-secondary);
+  }
+
+  .readme-content hr {
+    border: none;
+    border-top: 1px solid var(--border-light);
+    margin: var(--space-xl) 0;
+  }
+
+  .readme-content table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: var(--space-md);
+    font-size: 0.875rem;
+  }
+
+  .readme-content th,
+  .readme-content td {
+    border: 1px solid var(--border-light);
+    padding: var(--space-sm) var(--space-md);
+    text-align: left;
+  }
+
+  .readme-content th {
+    background: var(--bg-muted);
+    font-weight: 600;
+    color: var(--text);
+  }
+
+  .readme-content input[type="checkbox"] {
+    margin-right: 6px;
+    accent-color: var(--accent);
+  }
+
+  .project-page__no-readme {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    line-height: 1.8;
+    padding: var(--space-2xl) 0;
+  }
+
+  .project-page__footer {
+    margin-top: var(--space-3xl);
+    padding-top: var(--space-xl);
+    border-top: 1px solid var(--border-light);
+  }
+
+  .project-page__actions {
+    display: flex;
+    gap: var(--space-md);
+    flex-wrap: wrap;
+  }
+
+  .project-page__sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+  }
+
+  .sidebar-card {
+    padding: var(--space-lg);
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+  }
+
+  .sidebar-card__title {
+    font-size: 0.75rem;
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--text-muted);
+    margin-bottom: var(--space-md);
+    font-weight: 600;
+  }
+
+  .sidebar-card__stats {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+
+  .sidebar-stat {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    font-size: 0.8125rem;
+    color: var(--text-secondary);
+    font-family: var(--font-mono);
+  }
+
+  .sidebar-stat svg {
+    color: var(--text-muted);
+    flex-shrink: 0;
+  }
+
+  .lang-bar {
+    display: flex;
+    height: 8px;
+    border-radius: 999px;
+    overflow: hidden;
+    margin-bottom: var(--space-md);
+    background: var(--bg-muted);
+  }
+
+  .lang-bar__segment {
+    background: var(--seg-color);
+    width: var(--seg-width);
+    transition: opacity 0.2s ease;
+  }
+
+  .lang-bar__segment:hover {
+    opacity: 0.75;
+  }
+
+  .lang-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+  }
+
+  .lang-list__item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    font-size: 0.8125rem;
+    font-family: var(--font-mono);
+    color: var(--text-secondary);
+  }
+
+  .lang-list__dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--lang-color, #888);
+    flex-shrink: 0;
+  }
+
+  .lang-list__name {
+    flex: 1;
+  }
+
+  .sidebar-card__topics {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-xs);
+  }
+
+  @media (max-width: 960px) {
+    .project-page__layout {
+      grid-template-columns: 1fr;
+    }
+
+    .project-page__sidebar {
+      order: -1;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: var(--space-md);
+    }
+
+    .readme-body {
+      grid-template-columns: 1fr;
+    }
+
+    .readme-toc {
+      position: static;
+      padding: var(--space-md);
+      background: var(--bg-surface);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-md);
+      margin-bottom: var(--space-lg);
+    }
+
+    .readme-toc__list {
+      flex-direction: row;
+      flex-wrap: wrap;
+      border-left: none;
+      padding-left: 0;
+      gap: var(--space-xs) var(--space-md);
+    }
+
+    .readme-toc__item--h2,
+    .readme-toc__item--h3 {
+      padding-left: 0;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .project-page__sidebar {
+      grid-template-columns: 1fr;
+    }
+
+    .project-page__title {
+      font-size: 1.25rem;
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const content = document.getElementById('readme-content');
+    if (!content) return;
+
+    content.querySelectorAll('h1, h2, h3').forEach((el) => {
+      const id = el.textContent.toLowerCase().replace(/[^\w\s-]/g, '').replace(/\s+/g, '-').replace(/-+$/, '');
+      if (id && !el.id) el.id = id;
+      el.style.scrollMarginTop = '80px';
+    });
+  });
+</script>

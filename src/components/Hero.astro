@@ -1,6 +1,10 @@
 ---
 import profile from '../data/profile.json';
 import pinned from '../data/pinned-repos.json';
+import { copy, getLocale, projectPath } from '../data/i18n';
+
+const locale = getLocale(Astro.url.pathname);
+const ui = copy[locale];
 
 const langColor: Record<string, string> = {
   TypeScript: '#3178c6',
@@ -19,31 +23,39 @@ function toSlug(name: string) {
   <div class="hero__bg" aria-hidden="true"></div>
   <div class="hero__inner container">
     <div class="hero__content">
-      <span class="section-label fade-in" style="animation-delay: 0.1s">Olá, eu sou</span>
+      <span class="section-label fade-in" style="animation-delay: 0.1s">{ui.hero.eyebrow}</span>
       <h1 class="hero__title fade-in" style="animation-delay: 0.2s">
         {profile.name}
       </h1>
       <p class="hero__role fade-in" style="animation-delay: 0.3s">
-        {profile.role}
+        {ui.hero.role}
       </p>
       <p class="hero__tagline fade-in" style="animation-delay: 0.4s">
-        {profile.tagline}
+        {ui.hero.tagline}
       </p>
       <div class="hero__actions fade-in" style="animation-delay: 0.5s">
-        <a href="/projetos" class="btn btn--primary">
-          Ver projetos
+        <a href={locale === 'en-US' ? '/projects' : '/projetos'} class="btn btn--primary">
+          {ui.hero.primaryCta}
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
         </a>
         <a href={profile.github} target="_blank" rel="noopener noreferrer" class="btn btn--ghost">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
-          GitHub
+          {ui.hero.secondaryCta}
         </a>
       </div>
-      <div class="hero__chips fade-in" style="animation-delay: 0.6s">
-        <span class="hero__chips-label">Projetos</span>
+      <div class="hero__highlights fade-in" style="animation-delay: 0.6s">
+        {ui.hero.highlights.map((item) => (
+          <article class="hero__highlight">
+            <span class="hero__highlight-label">{item.label}</span>
+            <p>{item.text}</p>
+          </article>
+        ))}
+      </div>
+      <div class="hero__chips fade-in" style="animation-delay: 0.7s">
+        <span class="hero__chips-label">{ui.hero.selectedWork}</span>
         <div class="hero__chips-list">
           {pinned.map((repo) => (
-            <a href={`/projeto/${toSlug(repo.name)}`} class="hero__chip" style={`--chip-color: ${langColor[repo.language] || '#888'}`}>
+            <a href={projectPath(locale, toSlug(repo.name))} class="hero__chip" style={`--chip-color: ${langColor[repo.language] || '#888'}`}>
               <span class="hero__chip-dot"></span>
               {repo.name}
             </a>
@@ -97,8 +109,8 @@ function toSlug(name: string) {
 
   .hero__role {
     font-size: clamp(1.125rem, 2.5vw, 1.375rem);
-    color: var(--accent);
-    font-weight: 500;
+    color: var(--accent-light);
+    font-weight: 600;
     margin-bottom: var(--space-md);
   }
 
@@ -114,6 +126,39 @@ function toSlug(name: string) {
     display: flex;
     gap: var(--space-md);
     flex-wrap: wrap;
+  }
+
+  .hero__highlights {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--space-md);
+    margin-top: var(--space-2xl);
+    margin-bottom: var(--space-xl);
+  }
+
+  .hero__highlight {
+    padding: var(--space-lg);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-lg);
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.03), transparent), var(--bg-surface);
+    box-shadow: 0 16px 40px var(--shadow);
+    backdrop-filter: blur(12px);
+  }
+
+  .hero__highlight-label {
+    display: block;
+    margin-bottom: var(--space-sm);
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  .hero__highlight p {
+    color: var(--text-secondary);
+    font-size: 0.9375rem;
+    line-height: 1.7;
   }
 
   .hero__avatar {
@@ -221,6 +266,15 @@ function toSlug(name: string) {
 
     .hero__actions {
       justify-content: center;
+    }
+
+    .hero__highlights {
+      grid-template-columns: 1fr;
+      width: 100%;
+    }
+
+    .hero__highlight {
+      text-align: left;
     }
   }
 

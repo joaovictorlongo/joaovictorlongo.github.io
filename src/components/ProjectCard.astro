@@ -1,4 +1,6 @@
 ---
+import { getLocale, projectPath } from '../data/i18n';
+
 export interface Props {
   name: string;
   description: string;
@@ -9,9 +11,11 @@ export interface Props {
   forks: number;
   url: string;
   slug: string;
+  locale?: 'en-US' | 'pt-BR';
 }
 
-const { name, description, language, languages, topics, stars, forks, url, slug } = Astro.props;
+const { name, description, language, languages, topics, stars, forks, url, slug, locale: propLocale } = Astro.props;
+const locale = propLocale ?? getLocale(Astro.url.pathname);
 const langColor: Record<string, string> = {
   TypeScript: '#3178c6',
   JavaScript: '#f7df1e',
@@ -22,7 +26,7 @@ const langColor: Record<string, string> = {
 ---
 
 <article class="project-card fade-in">
-  <a href={`/projeto/${slug}`} class="project-card__link" aria-label={`Ver detalhes do projeto ${name}`}>
+  <a href={projectPath(locale, slug)} class="project-card__link" aria-label={`${locale === 'en-US' ? 'View details for project' : 'Ver detalhes do projeto'} ${name}`}>
     <div class="project-card__accent"></div>
     <div class="project-card__body">
       <div class="project-card__header">
@@ -155,16 +159,16 @@ const langColor: Record<string, string> = {
     align-items: center;
     gap: 4px;
     font-size: 0.75rem;
-    color: var(--text-muted);
+    color: var(--text-secondary);
     font-family: var(--font-mono);
   }
 
   .project-card__description {
     font-size: 0.875rem;
-    color: var(--text-secondary);
-    line-height: 1.65;
+    color: var(--text);
+    line-height: 1.7;
     display: -webkit-box;
-    -webkit-line-clamp: 2;
+    -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
     flex: 1;

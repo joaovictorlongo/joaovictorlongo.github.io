@@ -1,5 +1,6 @@
 ---
 import ProjectPreview from './ProjectPreview.astro';
+import { copy, getLocale } from '../data/i18n';
 
 export interface Props {
   repos: Array<{
@@ -11,18 +12,20 @@ export interface Props {
 }
 
 const { repos } = Astro.props;
+const locale = getLocale(Astro.url.pathname);
+const ui = copy[locale];
 
 function toSlug(name: string) {
   return name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 }
 ---
 
-<section id="projects" class="preview" aria-label="Projetos em destaque">
+<section id="projects" class="preview" aria-label={ui.projects.sectionLabel}>
   <div class="container">
-    <span class="section-label fade-in">Projetos</span>
-    <h2 class="preview__title fade-in">Alguns trabalhos</h2>
+    <span class="section-label fade-in">{ui.projects.sectionLabel}</span>
+    <h2 class="preview__title fade-in">{ui.projects.title}</h2>
     <p class="preview__subtitle fade-in">
-      Uma amostra dos meus repositórios públicos. Veja a página completa de projetos para mais detalhes.
+      {ui.projects.subtitle}
     </p>
     <div class="preview__grid">
       {repos.map((repo, i) => (
@@ -32,13 +35,14 @@ function toSlug(name: string) {
           language={repo.language}
           topics={repo.topics}
           slug={toSlug(repo.name)}
+          locale={locale}
           style={`animation-delay: ${0.15 + i * 0.1}s`}
         />
       ))}
     </div>
     <div class="preview__action fade-in">
-      <a href="/projetos" class="btn btn--ghost">
-        Ver todos os projetos
+      <a href={locale === 'en-US' ? '/projects' : '/projetos'} class="btn btn--ghost">
+        {ui.projects.cta}
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
       </a>
     </div>

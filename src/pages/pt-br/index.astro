@@ -1,10 +1,10 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
-import Hero from '../components/Hero.astro';
-import About from '../components/About.astro';
-import ProjectGrid from '../components/ProjectGrid.astro';
-import pinned from '../data/pinned-repos.json';
-import { copy, getLocale } from '../data/i18n';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Hero from '../../components/Hero.astro';
+import About from '../../components/About.astro';
+import ProjectGrid from '../../components/ProjectGrid.astro';
+import pinned from '../../data/pinned-repos.json';
+import { copy, getLocale } from '../../data/i18n';
 
 const locale = getLocale(Astro.url.pathname);
 const ui = copy[locale];
@@ -13,7 +13,7 @@ const ui = copy[locale];
 <BaseLayout
   title="João Victor Longo"
   description={ui.hero.tagline}
-  url={locale === 'en-US' ? 'https://joaovictorlongo.github.io/' : 'https://joaovictorlongo.github.io/pt-br'}
+  url="https://joaovictorlongo.github.io/pt-br"
 >
   <Hero />
   <About />
@@ -21,9 +21,7 @@ const ui = copy[locale];
     <div class="container">
       <span class="section-label">{ui.projects.sectionLabel}</span>
       <h2>{ui.projects.title}</h2>
-      <p class="home-projects__subtitle">
-        {ui.projects.subtitle}
-      </p>
+      <p class="home-projects__subtitle">{ui.projects.subtitle}</p>
     </div>
     <div class="container">
       <ProjectGrid repos={pinned} />
